@@ -42,7 +42,7 @@
 
 			<div id="footer">
 				<% if ($r->login) { %>
-				<a href="<%= $r->uri_for('/logout') %>">logged-in</a>
+				<a href="<%= $r->uri_for('/logout') %>">logout</a>
 				<% } else { %>
 				<a href="<%= $r->uri_for('/login') %>">login</a>
 				<% } %>
