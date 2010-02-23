@@ -5,6 +5,18 @@ use DateTime;
 my $dtf = 'DateTime::Format::SQLite';
 $dtf->use or die $@;
 
+install_utf8_columns qw/title body/;
+
+install_inflate_rule '_at$' => callback {
+	inflate {
+		$dtf->parse_datetime($_[0]);
+	};
+	deflate {
+		$dtf->format_datetime($_[0]);
+	};
+};
+
+
 install_table entry => schema {
 	pk 'id';
 	columns qw(
@@ -25,15 +37,5 @@ install_table entry => schema {
 		$args->{modified_at} = DateTime->now;
 	};
 };
-
-install_inflate_rule '_at$' => callback {
-	inflate {
-		$dtf->parse_datetime($_[0]);
-	};
-	deflate {
-		$dtf->format_datetime($_[0]);
-	};
-};
-
 
 1;
