@@ -1,0 +1,11 @@
+			<div id="footer">
+				<% if ($r->login) { %>
+				<a href="<%= $r->uri_for('/logout') %>">logout</a>
+				<% } else { %>
+				<a href="<%= $r->uri_for('/login') %>">login</a>
+				<% } %>
+				<address>2010 <a href="mailto:cho45@lowreal.net">cho45@lowreal.net</a></address>
+			</div>
+		</div>
+	</body>
+</html>

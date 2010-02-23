@@ -1,3 +1,5 @@
+<%& $r->config->root->file('templates', '_header.html') %>
+
 <form action="" method="post">
 	<p>
 	<%= $r->stash->{error} %>
@@ -7,3 +9,5 @@
 		<input type="submit" value="login"/>
 	</p>
 </form>
+
+<%& $r->config->root->file('templates', '_footer.html') %>
