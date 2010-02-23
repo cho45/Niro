@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use UNIVERSAL::require;
-use Test::More tests => 7;
+use Test::More tests => 8;
 use Test::Deep;
 use File::Temp;
 use Path::Class;
@@ -33,7 +33,8 @@ my $e1 = Niro::Model->insert('entry', {
 is $e1->id, 1;
 is $e1->title, "test";
 is $e1->body,  "body";
-is $e1->formatted_body,  "body";
+ok $e1->formatted_body;
+$e1->update;
 
 my $e2 = Niro::Model->insert('entry', {
 	title => u8 "たいとる",
@@ -43,5 +44,8 @@ my $e2 = Niro::Model->insert('entry', {
 is $e2->id, 2;
 is_utf8 $e2->title;
 is_utf8 $e2->body;
+
+my $ee = Niro::Model->single('entry', { id => 1 });
+ok $ee;
 
 

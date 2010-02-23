@@ -5,6 +5,7 @@ use warnings;
 use utf8;
 
 use Exporter::Lite;
+use Encode;
 our @EXPORT = qw(html json);
 
 sub html {
@@ -14,12 +15,12 @@ sub html {
 	# $m->set_globals(map { ("\$$_", $r->stash->{$_}) } keys %{ $r->stash });
 	$m->set_globals("\$r", $r);
 
-	my $template = $r->config->root->file('templates', $name)->slurp;
+	my $template = decode_utf8($r->config->root->file('templates', $name)->slurp);
 	eval {
 		my $content = $m->execute(text => $template);
 
 		$r->res->header("Content-Type" => "text/html");
-		$r->res->body($content);
+		$r->res->body(encode_utf8($content));
 	};
 	if ($@) {
 		die $@ ;

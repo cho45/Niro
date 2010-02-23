@@ -3,7 +3,7 @@
 <div id="content">
 	<% for my $entry (@{ $r->stash->{entries} }) { %>
 	<div class="entry">
-		<h2><%= $entry->title %></h2>
+		<h2>#<%= $entry->id %><%= $entry->title %></h2>
 		<div class="body">
 			<%raw= $entry->formatted_body %>
 		</div>
@@ -14,12 +14,13 @@
 <% if ($r->login) { %>
 <form action="<%= $r->uri_for('/api/post') %>" method="post">
 	<dl>
-		<dt>Title</dt>
+		<dt>タイトル</dt>
 		<dd><input type="text" name="title" /></dd>
-		<dt>Body</dt>
+		<dt>本文</dt>
 		<dd><textarea name="body" cols="50" rows="10"></textarea></dd>
 	</dl>
 	<p>
+		<input type="hidden" name="id" value="1"/>
 		<input type="hidden" name="rks" value="<%= $r->rks %>"/>
 		<input type="submit" value="post"/>
 	</p>

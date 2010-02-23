@@ -17,7 +17,7 @@ use Niro::Config;
 route '/', action => sub {
 	my ($r) = @_;
 	my $entries = [
-		Niro::Model->search(q{
+		Niro::Model->select(q{
 			SELECT * FROM entry
 			ORDER BY created_at DESC
 			LIMIT 10
@@ -49,12 +49,26 @@ route '/logout', method => GET,  action => sub {
 route '/api/post', method => POST, action => sub {
 	my ($r) = @_;
 	return $r->error(code => 403) unless $r->login;
-	my $entry = Niro::Model->insert('entry', {
-		title => $r->req->param('title') || '',
-		body  => $r->req->param('body')  || '',
-	});
+
+	my $entry;
+	if ($r->req->param('id')) {
+		$entry = Niro::Model->single('entry', { id => $r->req->param('id') });
+		return $r->json({ error => 'unkown entry' }) unless $entry;
+		$entry->set({
+			title => $r->req->param('title') || '',
+			body  => $r->req->param('body')  || '',
+		});
+		$entry->update;
+	} else {
+		$entry = Niro::Model->insert('entry', {
+			title => $r->req->param('title') || '',
+			body  => $r->req->param('body')  || '',
+		});
+	}
+
 	$r->json({
 		entry => {
+			id             => $entry->id,
 			title          => $entry->title,
 			body           => $entry->body,
 			formatted_body => $entry->formatted_body,
@@ -150,6 +164,14 @@ sub error {
 	$self->res->body($opts{message} || $opts{code} || 500);
 }
 
+my $db = Niro::Config->instance->root->file('entry.db');
+Niro::Model->connect_info({
+	dsn => 'dbi:SQLite:' . $db,
+});
+unless (-f $db) {
+	my $schema = Niro->config->root->file('db', 'schema.sql')->slurp;
+	Niro::Model->do($schema);
+}
 
 1;
 __END__
