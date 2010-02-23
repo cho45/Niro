@@ -4,3 +4,6 @@
 [submodule "modules/Hash-MultiValue"]
 	path = modules/Hash-MultiValue
 	url = git://github.com/miyagawa/Hash-MultiValue.git
+[submodule "modules/DBIx-Skinny"]
+	path = modules/DBIx-Skinny
+	url = git://github.com/nekokak/p5-dbix-skinny.git

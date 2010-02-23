@@ -1,0 +1,8 @@
+CREATE TABLE entry (
+	id INTEGER UNSIGNED PRIMARY KEY,
+	title TEXT NOT NULL,
+	body TEXT NOT NULL,
+	created_at DATETIME NOT NULL,
+	modified_at DATETIME NOT NULL
+);
+
