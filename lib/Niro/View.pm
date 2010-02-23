@@ -11,7 +11,8 @@ sub html {
 	my ($r, $name) = @_;
 	Text::MicroMason->use or die;
 	my $m  = Text::MicroMason->new(qw/ -SafeServerPages -AllowGlobals /);
-	$m->set_globals(map { ("\$$_", $r->stash->{$_}) } keys %{ $r->stash });
+	# $m->set_globals(map { ("\$$_", $r->stash->{$_}) } keys %{ $r->stash });
+	$m->set_globals("\$r", $r);
 
 	my $template = $r->root->file('templates', $name)->slurp;
 	my $content = $m->execute(text => $template);
