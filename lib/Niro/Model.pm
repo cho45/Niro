@@ -11,7 +11,7 @@ sub select {
 	unless ($name) {
 		($name) = ($sql =~ /FROM ([^\s]+)/i)
 	}
-	$self->search_named($sql, $hash || {}, $array || [], $name);
+	[ $self->search_named($sql, $hash || {}, $array || [], $name) ];
 }
 
 

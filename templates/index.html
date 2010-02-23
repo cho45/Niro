@@ -3,7 +3,7 @@
 <div id="content">
 	<% for my $entry (@{ $r->stash->{entries} }) { %>
 	<div class="entry">
-		<h2>#<%= $entry->id %><%= $entry->title %></h2>
+		<h2><a href="<%= $r->uri_for('/' . $entry->id) %>">#<%= $entry->id %></a> <%= $entry->title %></h2>
 		<div class="body">
 			<%raw= $entry->formatted_body %>
 		</div>

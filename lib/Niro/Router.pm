@@ -41,7 +41,6 @@ sub dispatch {
 	my ($class, $niro) = @_;
 	my $path   = $niro->req->path;
 	my $method = uc $niro->req->method;
-	my $params = {};
 	my $action;
 
 	my $routing_info;
@@ -49,7 +48,7 @@ sub dispatch {
 		next if $route->{method} && ($route->{method} ne $method);
 		if (my @capture = ($path =~ $route->{regexp})) {
 			for my $name (@{ $route->{capture} }) {
-				$params->{$name} = shift @capture;
+				$niro->req->parameters->add($name => shift @capture);
 			}
 			$action = $route->{action};
 			$routing_info = sprintf("%s %s => %s", $method, $path, $route->{define});
@@ -58,7 +57,6 @@ sub dispatch {
 		}
 	}
 
-	$niro->req->param(%$params);
 	$niro->res->status(200);
 	$niro->res->headers([
 		'Content-Type'   => 'text/html',
