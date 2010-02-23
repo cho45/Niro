@@ -1,4 +1,28 @@
 Niro*
 =====
 
-Blogging System written in Perl.
+Blogging System for personal use written in Perl.
+
+Concept
+=======
+
+ * work on CGI environment
+ * Edit in place - I want Engish version of Hatena::Diary
+
+TODO
+====
+
+ * Edit in place - MAIN FEATURE
+ * Hatena::Star
+ * Design
+ * Comment with DISQUS
+ * Twitter + bit.ly support
+ * Tag (means "Category" in Hatena::Diary)
+
+
+NOT IN FEATURES
+===============
+
+ * 'Delete' function - this is very dangerous and 'Edit' is enogh or more better for that purpose.
+
+
