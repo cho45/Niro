@@ -9,5 +9,15 @@ sub formatted_body {
 	Text::Hatena->parse($self->body);
 }
 
+sub as_stash {
+	my ($self) = @_;
+	+{
+		id             => $self->id,
+		title          => $self->title,
+		body           => $self->body,
+		formatted_body => $self->formatted_body,
+	}
+}
+
 1;
 

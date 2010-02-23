@@ -56,6 +56,7 @@ route '/logout', method => GET,  action => sub {
 route '/api/post', method => POST, action => sub {
 	my ($r) = @_;
 	return $r->error(code => 403) unless $r->login;
+	return $r->error(code => 403) unless $r->rks eq $r->req->param('rks');
 
 	my $entry;
 	if ($r->req->param('id')) {
@@ -74,12 +75,7 @@ route '/api/post', method => POST, action => sub {
 	}
 
 	$r->json({
-		entry => {
-			id             => $entry->id,
-			title          => $entry->title,
-			body           => $entry->body,
-			formatted_body => $entry->formatted_body,
-		}
+		entry => $entry->as_stash
 	});
 };
 
