@@ -53,8 +53,7 @@ sub dispatch {
 			}
 			$action = $route->{action};
 			$routing_info = sprintf("%s %s => %s", $method, $path, $route->{define});
-			Niro->log(debug => ["", $method, $path]);
-			Niro->log(debug => ["Routing to: %s", $route->{define}]);
+			$niro->req->logger({ level => debug => message => $routing_info });
 			last;
 		}
 	}

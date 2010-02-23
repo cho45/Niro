@@ -4,19 +4,27 @@ use strict;
 use warnings;
 use utf8;
 
-use Path::Class;
-use Config::Tiny;
 use Digest::SHA1;
+use Path::Class;
 
 use Niro::Router;
 use Niro::Request;
 use Niro::View;
-my $root = file(__FILE__)->dir->parent;
-my $config = Config::Tiny->read($root->file('niro.conf'));
+use Niro::Model;
+use Niro::Config;
+
 
 route '/', action => sub {
 	my ($r) = @_;
-	$r->stash(title => 'test', content => 'foo');
+	my $entries = [
+		Niro::Model->search(q{
+			SELECT * FROM entry
+			ORDER BY created_at DESC
+			LIMIT 10
+		})
+	];
+
+	$r->stash(entries => $entries);
 	$r->html('index.html');
 };
 
@@ -24,7 +32,7 @@ route '/login', method => GET,  action => sub { shift->html('login.html') };
 route '/login', method => POST, action => sub {
 	my ($r) = @_;
 	my $password = $r->req->param('password') || "";
-	if ($password eq $config->{_}->{password}) {
+	if ($password eq Niro->config->{_}->{password}) {
 		$r->login(new => 1);
 		$r->res->redirect($r->uri_for('/'));
 	} else {
@@ -40,8 +48,18 @@ route '/logout', method => GET,  action => sub {
 
 route '/api/post', method => POST, action => sub {
 	my ($r) = @_;
-	$r->stash(title => 'test', content => 'foo');
-	$r->html('index.html');
+	return $r->error(code => 403) unless $r->login;
+	my $entry = Niro::Model->insert('entry', {
+		title => $r->req->param('title') || '',
+		body  => $r->req->param('body')  || '',
+	});
+	$r->json({
+		entry => {
+			title          => $entry->title,
+			body           => $entry->body,
+			formatted_body => $entry->formatted_body,
+		}
+	});
 };
 
 sub login {
@@ -65,6 +83,11 @@ sub login {
 	}
 }
 
+sub rks {
+	my ($r) = @_;
+	Digest::SHA1::sha1_hex($r->req->cookies->{rk});
+}
+
 sub uri_for {
 	my ($r, $path, $args) = @_;
 	$path =~ s{^/}{};
@@ -73,6 +96,9 @@ sub uri_for {
 	$uri->query_form(@$args) if $args;
 	$uri;
 }
+
+
+
 
 sub run {
 	my ($env) = @_;
@@ -92,12 +118,8 @@ sub new {
 	}, $class;
 }
 
-sub root {
-	$root;
-}
-
 sub config {
-	$config;
+	Niro::Config->instance;
 }
 
 sub _run {
@@ -120,6 +142,12 @@ sub stash {
 		%params
 	};
 	$self->{stash};
+}
+
+sub error {
+	my ($self, %opts) = @_;
+	$self->res->status($opts{code} || 500);
+	$self->res->body($opts{message} || $opts{code} || 500);
 }
 
 

@@ -22,7 +22,7 @@ Niro::Model->reconnect({
 });
 
 
-my $schema = Niro->root->file('db', 'schema.sql')->slurp;
+my $schema = Niro->config->root->file('db', 'schema.sql')->slurp;
 Niro::Model->do($schema);
 
 my $e1 = Niro::Model->insert('entry', {

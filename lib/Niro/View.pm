@@ -14,15 +14,26 @@ sub html {
 	# $m->set_globals(map { ("\$$_", $r->stash->{$_}) } keys %{ $r->stash });
 	$m->set_globals("\$r", $r);
 
-	my $template = $r->root->file('templates', $name)->slurp;
-	my $content = $m->execute(text => $template);
+	my $template = $r->config->root->file('templates', $name)->slurp;
+	eval {
+		my $content = $m->execute(text => $template);
 
-	$r->res->header("Content-Type" => "text/html");
-	$r->res->body($content);
+		$r->res->header("Content-Type" => "text/html");
+		$r->res->body($content);
+	};
+	if ($@) {
+		die $@ ;
+	}
 }
 
 
 sub json ($) {
+	my ($r, $obj) = @_;
+	JSON::XS->use or die;
+	my $json = encode_json($obj);
+
+	$r->res->header("Content-Type" => "application/json");
+	$r->res->body($json);
 }
 
 
