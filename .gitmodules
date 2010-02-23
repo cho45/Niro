@@ -1,0 +1,6 @@
+[submodule "modules/Plack"]
+	path = modules/Plack
+	url = git://github.com/miyagawa/Plack.git
+[submodule "modules/Hash-MultiValue"]
+	path = modules/Hash-MultiValue
+	url = git://github.com/miyagawa/Hash-MultiValue.git
