@@ -76,5 +76,51 @@ subtest "tagged entry" => sub {
 	done_testing;
 };
 
+subtest "pager" => sub {
+	my $e4 = Niro::Model->insert('entry', { title => 'a', body => 'body' });
+	my $e3 = Niro::Model->insert('entry', { title => 'a', body => 'body' });
+	my $e2 = Niro::Model->insert('entry', { title => 'a', body => 'body' });
+	my $e1 = Niro::Model->insert('entry', { title => 'a', body => 'body' });
+	my $e0 = Niro::Model->insert('entry', { title => 'a', body => 'body' });
+
+	my ($page, $entries);
+
+	$page = Niro::Model->page(q{
+		SELECT * FROM entry
+		ORDER BY created_at DESC
+		LIMIT 2
+	});
+	$page->page(1);
+
+	$entries = $page->entries;
+	is scalar @$entries, 2;
+	is $entries->[0]->id, $e0->id;
+	is $entries->[1]->id, $e1->id;
+
+	$page = Niro::Model->page(q{
+		SELECT * FROM entry
+		ORDER BY created_at DESC
+		LIMIT 2
+	});
+	$page->page(2);
+
+	$entries = $page->entries;
+	is scalar @$entries, 2;
+	is $entries->[0]->id, $e2->id;
+	is $entries->[1]->id, $e3->id;
+
+	$page = Niro::Model->page(q{
+		SELECT * FROM entry
+		ORDER BY created_at DESC
+		LIMIT 2
+	});
+	$page->page(3);
+
+	$entries = $page->entries;
+	is $entries->[0]->id, $e4->id;
+
+	done_testing;
+};
+
 
 done_testing;

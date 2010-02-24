@@ -16,38 +16,35 @@ use Niro::Config;
 
 route '/', action => sub {
 	my ($r) = @_;
-	my $entries = Niro::Model->select(q{
+	my $page = Niro::Model->page(q{
 		SELECT * FROM entry
 		ORDER BY created_at DESC
-		LIMIT 10
+		LIMIT 5
 	});
+	$page->page($r->req->param('page') || 1);
 
-	$r->stash(entries => $entries);
+	$r->stash(page => $page);
 	$r->html('index.html');
 };
 
 route '/:id', id => qr/\d+/, action => sub {
 	my ($r) = @_;
 	my $entry = Niro::Model->single('entry', { id => $r->req->param('id') });
-	my $entries = [ $entry ];
-
-	$r->stash(entries => $entries);
-	$r->html('index.html');
+	$r->stash(entry => $entry);
+	$r->html('entry.html');
 };
 
 route '/:category/', category => qr/[a-z]+/, action => sub {
 	my ($r) = @_;
-	my $entries = Niro::Model->select(q{
+	my $page = Niro::Model->page(q{
 		SELECT entry.* FROM entry INNER JOIN tag ON entry.id = tag.entry_id
 		WHERE tag.name = :name
 		ORDER BY created_at DESC
 		LIMIT 10
 	}, { name => $r->req->param('category') });
+	$page->page($r->req->param('page') || 1);
 
-use Data::Dumper;
-warn Dumper $entries ;
-
-	$r->stash(entries => $entries);
+	$r->stash($page => $page);
 	$r->html('index.html');
 };
 
