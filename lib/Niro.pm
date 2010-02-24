@@ -35,6 +35,19 @@ route '/:id', id => qr/\d+/, action => sub {
 	$r->html('index.html');
 };
 
+route '/:category/', category => qr/[a-z]+/, action => sub {
+	my ($r) = @_;
+	my $entries = Niro::Model->select(q{
+		SELECT * FROM entry INNER JOIN tag ON entry.id = tag.entry_id
+		WHERE tag.name = :name
+		ORDER BY created_at DESC
+		LIMIT 10
+	}, { name => $r->req->param('category') });
+
+	$r->stash(entries => $entries);
+	$r->html('index.html');
+};
+
 route '/login', method => GET,  action => sub { shift->html('login.html') };
 route '/login', method => POST, action => sub {
 	my ($r) = @_;
@@ -171,8 +184,11 @@ Niro::Model->connect_info({
 	dsn => 'dbi:SQLite:' . $db,
 });
 unless (-f $db) {
-	my $schema = Niro->config->root->file('db', 'schema.sql')->slurp;
-	Niro::Model->do($schema);
+	Niro::Model->do($_) for split /;/, do {
+		my $schema = Niro->config->root->file('db', 'schema.sql')->slurp;
+		$schema =~ s/;\s*$//;
+		$schema;
+	};
 }
 
 1;

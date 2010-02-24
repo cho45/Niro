@@ -7,6 +7,13 @@
 		<div class="body">
 			<%raw= $entry->formatted_body %>
 		</div>
+		<div class="info">
+			<ul class="tags">
+				<% for my $tag (@{ $entry->tags }) { %>
+				<li><a href="<%= $r->uri_for("/$tag/") %>"><%= $tag %></a></li>
+				<% } %>
+			</ul>
+		</div>
 	</div>
 	<% } %>
 </div>
