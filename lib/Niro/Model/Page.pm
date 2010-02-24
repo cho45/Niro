@@ -44,12 +44,16 @@ sub pager_html {
 	my $ret = "<div class='pager'>";
 	if ($self->has_prev) {
 		$ret .= sprintf('<a href="?page=%d" rel="prev">&lt;&lt;</a>', $self->current - 1);
+	} else {
+		$ret .= sprintf('<a rel="prev">&lt;&lt;</a>');
 	}
 
 	$ret .= sprintf('<strong class="current">%d</strong>', $self->current);
 
 	if ($self->has_next) {
 		$ret .= sprintf('<a href="?page=%d" rel="next">>></a>', $self->current + 1);
+	} else {
+		$ret .= sprintf('<a rel="next">>></a>');
 	}
 
 	$ret .= '</div>';

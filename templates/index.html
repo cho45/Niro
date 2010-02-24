@@ -18,9 +18,9 @@
 					<span class="fn nickname">cho45</span>
 				</span>
 				at
-				<abbr class="published" title="<%= $entry->created_at %>Z"><%= $entry->created_at %>Z</abbr>
+				<abbr class="published" title="<%= $entry->created_at %>Z"><%= $entry->ambtime('created_at') %></abbr>
 				, updated at
-				<abbr class="updated" title="<%= $entry->modified_at %>Z"><%= $entry->modified_at %>Z</abbr>
+				<abbr class="updated" title="<%= $entry->modified_at %>Z"><%= $entry->ambtime('modified_at') %></abbr>
 
 				<ul class="tags">
 					<% for my $tag (@{ $entry->tags }) { %>

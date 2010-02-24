@@ -1,14 +1,10 @@
 Deferred.define();
 
 Niro = {};
-Niro.Editor = function () { this.init.apply(this, arguments) };
-Niro.Editor.prototype = {
-	init : function () {
-	}
-};
 
 $(function () {
-	$("#content .hentry").each(function () {
+
+	if (Niro.User.login) $("#content .hentry").each(function () {
 		var $entry    = $(this);
 		var $title    = $entry.find('.entry-title');
 		var $content  = $entry.find('.entry-content');

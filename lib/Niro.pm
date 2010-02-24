@@ -44,7 +44,7 @@ route '/:category/', category => qr/[a-z]+/, action => sub {
 	}, { name => $r->req->param('category') });
 	$page->page($r->req->param('page') || 1);
 
-	$r->stash($page => $page);
+	$r->stash(page => $page);
 	$r->html('index.html');
 };
 

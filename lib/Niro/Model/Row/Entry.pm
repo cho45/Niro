@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use base 'DBIx::Skinny::Row';
 use Niro::Model;
+use DateTime;
 
 use Text::Hatena;
 sub formatted_body {
@@ -69,6 +70,35 @@ sub as_stash {
 		body           => $self->body,
 		formatted_body => $self->formatted_body,
 	}
+}
+
+
+sub ambtime {
+	my ($self, $name) = @_;
+	my $datetime = $self->$name;
+	my $now = DateTime->now;
+	my $delta = $now->epoch - $datetime->epoch;
+	my $ret;
+
+	if       ($delta <  60 * 60) {
+		my $min = int($delta / (60));
+		$ret = ($min > 3) ? $min . " minutes ago" : "a minutes ago";
+
+	} elsif  ($delta <  60 * 60 * 24) {
+		$ret = int($delta / (60 * 60)) . " hours ago";
+
+	} elsif  ($delta <  60 * 60 * 24 * 3) {
+		$ret = int($delta / (60 * 60 * 24)) . " days ago"
+
+	} elsif  ($now->strftime("%Y") eq $datetime->strftime("%Y")) {
+		$ret = $datetime->strftime("%m/%d");
+
+	} else {
+		$ret = $datetime->strftime("%Y-%m-%d");
+	}
+
+	$ret =~ s/0([1-9])/$1/g;
+	$ret;
 }
 
 1;

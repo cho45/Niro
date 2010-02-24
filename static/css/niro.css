@@ -1,7 +1,95 @@
 
+html,
+body {
+	font-family: 'Optima', serif;
+	background: #efefef;
+	color: #111;
+}
+
+a:link {
+	color: #406c7f;
+}
+
+a:visited {
+	color: #405a7f;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+abbr {
+	text-decoration: none;
+	border: none;
+}
+
+#top {
+	padding: 1em 0;
+}
+
+#top a:link,
+#top a:visited {
+	color: #000;
+	text-decoration: none;
+}
 
 #whole {
-	width: 50em;
+	max-width: 100%;
+	width: 70em;
 	margin: 0 auto;
 }
 
+
+.hentry {
+	background: #fff;
+	-moz-border-radius: 1em;
+	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	-webkit-border-radius: 1em;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	padding: 2em;
+	margin: 3em 0 5em 0;
+}
+
+.hentry a[rel="bookmark"] {
+	text-decoration: none;
+}
+
+.hentry .entry-title {
+	padding: 0 0.5em;
+}
+
+
+.hentry h2 {
+	margin: 1em 0 2em 0;
+}
+
+.hentry .entry-info {
+	font-size: 90%;
+	padding: 2em 0 0;
+}
+
+.pager {
+	text-align: center;
+	margin: 5em 0;
+}
+
+.pager a {
+	display: inline-block;
+	margin: 1em;
+	padding: 1em 2em;
+}
+
+#footer {
+	text-align: center;
+}
+
+#admin {
+	text-align: right;
+}
+
+.admin {
+	font-size: 70%;
+	font-weight: normal;
+	text-decoration: none;
+	padding: 1em;
+}
