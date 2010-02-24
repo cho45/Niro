@@ -1,10 +1,14 @@
 			<div id="footer">
+				<p>Powered by <a href="http://github.com/cho45/Niro">Niro*</a></p>
+				<address>2010 <a href="mailto:cho45@lowreal.net">cho45@lowreal.net</a></address>
+			</div>
+
+			<div id="admin">
 				<% if ($r->login) { %>
 				<a href="<%= $r->uri_for('/logout') %>">logout</a>
 				<% } else { %>
 				<a href="<%= $r->uri_for('/login') %>">login</a>
 				<% } %>
-				<address>2010 <a href="mailto:cho45@lowreal.net">cho45@lowreal.net</a></address>
 			</div>
 		</div>
 	</body>

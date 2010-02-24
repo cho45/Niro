@@ -1,0 +1,7 @@
+
+<FilesMatch "\.(db|conf)$">
+	Deny From All
+</FilesMatch>
+
+AddHandler cgi-script .cgi
+

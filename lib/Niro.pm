@@ -107,7 +107,6 @@ sub rks {
 
 sub uri_for {
 	my ($r, $path, $args) = @_;
-	$path =~ s{^/}{};
 	my $uri = $r->req->base;
 	$uri->path($uri->path . $path);
 	$uri->query_form(@$args) if $args;
