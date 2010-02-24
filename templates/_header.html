@@ -2,14 +2,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>Niro*</title>
-		<link rel="stylesheet" type="text/css" href="/base.css" media="screen,tv"/>
-		<link rel="stylesheet" type="text/css" href="/site.css" media="screen,tv,projection" title="site"/>
+		<link rel="stylesheet" type="text/css" href="<%= $r->uri_for('/css/site-style.css') %>" media="screen,tv,projection" title="site"/>
 		<link rel="meta" type="application/rdf+xml" title="FOAF" href="http://lowreal.net/cho45/foaf"/>
 
 		<link rev="made" href="mailto:cho45@lowreal.net"/>
-		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+		<link rel="shortcut icon" href="<%= $r->uri_for('/favicon.ico') %>" type="image/x-icon"/>
 
-		<!-- <script type="text/javascript" src="/site-script.js"></script> -->
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="http://github.com/cho45/jsdeferred/raw/master/jsdeferred.jquery.js"></script>
+		<script type="text/javascript" src="<%= $r->uri_for('/js/site-script.js') %>"></script>
+		<script type="text/javascript">
+			Niro.BASE = '<%= $r->uri_for('') %>';
+			Niro.User = {
+				login : <%= $r->login ? "true" : "false" %>,
+				rks   : "<%= $r->rks %>"
+			};
+		</script>
 	</head>
 	<body>
 		<div id="whole">

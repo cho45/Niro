@@ -38,11 +38,14 @@ route '/:id', id => qr/\d+/, action => sub {
 route '/:category/', category => qr/[a-z]+/, action => sub {
 	my ($r) = @_;
 	my $entries = Niro::Model->select(q{
-		SELECT * FROM entry INNER JOIN tag ON entry.id = tag.entry_id
+		SELECT entry.* FROM entry INNER JOIN tag ON entry.id = tag.entry_id
 		WHERE tag.name = :name
 		ORDER BY created_at DESC
 		LIMIT 10
 	}, { name => $r->req->param('category') });
+
+use Data::Dumper;
+warn Dumper $entries ;
 
 	$r->stash(entries => $entries);
 	$r->html('index.html');
@@ -86,6 +89,17 @@ route '/api/post', method => POST, action => sub {
 			body  => $r->req->param('body')  || '',
 		});
 	}
+
+	$r->json({
+		entry => $entry->as_stash
+	});
+};
+
+route '/api/info', method => GET, action => sub {
+	my ($r) = @_;
+	return $r->error(code => 403) unless $r->login;
+	my $entry = Niro::Model->single('entry', { id => $r->req->param('id') });
+	return $r->json({ error => 'unkown entry' }) unless $entry;
 
 	$r->json({
 		entry => $entry->as_stash
