@@ -36,19 +36,4 @@
 
 </div>
 
-<% if ($r->login) { %>
-<form action="<%= $r->uri_for('/api/post') %>" method="post">
-	<dl>
-		<dt>タイトル</dt>
-		<dd><input type="text" name="title" /></dd>
-		<dt>本文</dt>
-		<dd><textarea name="body" cols="50" rows="10"></textarea></dd>
-	</dl>
-	<p>
-		<input type="hidden" name="rks" value="<%= $r->rks %>"/>
-		<input type="submit" value="post"/>
-	</p>
-</form>
-<% } %>
-
 <%& $r->config->root->file('templates', '_footer.html') %>

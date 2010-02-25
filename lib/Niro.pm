@@ -190,7 +190,7 @@ sub error {
 	$self->res->body($opts{message} || $opts{code} || 500);
 }
 
-my $db = Niro::Config->instance->root->file('entry.db');
+my $db = Niro::Config->instance->root->file(($ENV{HTTP_HOST} || "") =~ /\blab\b/ ? 'test.db' : 'entry.db');
 Niro::Model->connect_info({
 	dsn => 'dbi:SQLite:' . $db,
 });
