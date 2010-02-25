@@ -2,6 +2,7 @@
 use strict;
 
 use lib glob 'modules/*/lib';
+use lib glob 'extlib/*/lib';
 use lib 'lib';
 
 use Plack::Runner;

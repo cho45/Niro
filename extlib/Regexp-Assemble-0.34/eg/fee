@@ -1,0 +1,22 @@
+#! /usr/local/bin/perl -w
+
+use strict;
+use Regexp::Assemble;
+
+my $re = Regexp::Assemble->new->add( qw[ fee fie foe fum ] );
+
+while( <DATA> ) {
+    chomp;
+    if( /($re)/ ) {
+        print "Here be giants: $1\n";
+    }
+}
+
+print $re->as_string, "\n";
+
+__DATA__
+feedbag
+airfield
+foe
+fumble
+blorp

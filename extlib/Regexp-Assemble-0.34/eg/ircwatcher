@@ -1,0 +1,54 @@
+#! /usr/local/bin/perl -w
+#
+# ircwatcher - watch an IRC stream and do things when
+#              interesting things occur
+#
+# This script demonstrates the use of dispatch table. One
+# regular expression matching everthing, and then handing
+# off the captured submatches to a callback.
+#
+# Try changing the read of STDIN to DATA for a quick demo.
+#
+# Acknowledgements to David "Sniper" Rigaudière for the
+# idea.
+#
+# Copyright (C) David Landgren 2005
+
+use strict;
+use Regexp::Assemble;
+
+my %dispatch = (
+    '^\*\*\* (\S+) joined channel (\S+)$'           => \&joined,
+    '^\*\*\* (\S+) left channel (\S+) reason (.*)$' => \&left,
+    '^q$' => sub { exit },
+);
+
+my $re = Regexp::Assemble->new
+    ->track(1)
+    ->add(keys %dispatch);
+
+sub joined {
+    my ($who, $channel) = @_;
+    print "$who joined $channel\n";
+}
+
+sub left {
+    my ($who, $channel, $reason) = @_;
+    print "$who left $channel saying $reason\n";
+}
+
+while( <STDIN> ) {
+    chomp;
+    if ($re->match($_)) {
+        $dispatch{$re->matched}->($re->capture);
+    }
+    else {
+        print "ignored <$_>\n";
+    }
+}
+
+__DATA__
+*** david joined channel foo
+hello
+*** david left channel bar reason that's all folks
+q

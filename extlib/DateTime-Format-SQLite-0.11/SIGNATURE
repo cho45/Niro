@@ -1,0 +1,36 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.55.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 0ca049e3ec3233163e37867faa076f079708baa9 Changes
+SHA1 6ca684af4fef50a7cad03b5921f8aaa4f8245898 LICENSE
+SHA1 6b712d0e49a3129851fc3f4a4a8b98f2e2d0f548 MANIFEST
+SHA1 fe20e23cd1cb7d50e2ba1d5e80e0a32066b5f8b3 META.yml
+SHA1 8cb508d05d4802ca683f92884573098b01c83d81 Makefile.PL
+SHA1 8a3495452770672aad88d236fcf3ee36817e967c README
+SHA1 63f5d3058c154c87829aa61086612f0428605173 lib/DateTime/Format/SQLite.pm
+SHA1 c1975c5ba15ab1cfcc01059161a9ec684357bd44 t/00load.t
+SHA1 66e7a849ed341e176e31a96edd8e4daf997aa344 t/10pod.t
+SHA1 96484a3c6a75d1652dfb3a0062c1bb2a1b8d66bf t/11pod_cover.t
+SHA1 a48cf61d88d8f6c44cb5ab0815c9df69fcb14f08 t/format.t
+SHA1 867411a64faf2740a38363fb62cf1656ddf2cac6 t/parse.t
+SHA1 71c2a86d782a8082f83b4edb47303514f065acc7 t/withsqlite.t
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (Darwin)
+
+iEYEARECAAYFAkshJsgACgkQSKUOY2OWgPCOUACgthuhPYh/QYjLB5dm2ECvutYx
+F5YAn2bLqQfuw36QRDOKs3dKWSLpN9Y4
+=ulwx
+-----END PGP SIGNATURE-----

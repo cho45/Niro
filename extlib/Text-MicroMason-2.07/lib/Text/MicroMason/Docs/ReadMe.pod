@@ -1,0 +1,203 @@
+=head1 NAME
+
+Text::MicroMason::Docs::ReadMe - About the MicroMason Distribution
+
+=head1 MOTIVATION
+
+The HTML::Mason module provides a useful syntax for dynamic template
+interpretation (sometimes called embedded scripting): plain text (or
+HTML) containing occasional chunks of Perl code whose results are
+interpolated into the text when the template is "executed."
+
+However, HTML::Mason also provides a full-featured web application
+framework with numerous other functions, and there are times in which
+I'd like to use the templating capability without configuring a full
+Mason installation.
+
+Thus, the Text::MicroMason module was born: it supports the core aspects
+of the HTML::Mason syntax ("<%...%>" expressions, "%...\n" lines and
+"<%perl>...</%perl>" blocks, "<& file &>" includes, "%ARGS" and 
+"$_out->()"), and omits the features that are web specific (like
+autohandlers) or are less widely used (like "<%method>" blocks).
+
+You may well be thinking "yet another dynamic templating module?
+Sheesh!" And you'd have a good point. There certainly are a wide variety
+of templating toolkits on CPAN already. (For a brief list see
+L<Text::MicroMason::Docs::Related>.)
+
+Nonetheless, I think this module occupies a useful niche: it provides a
+reasonable subset of HTML::Mason syntax in a very light-weight fashion.
+In comparison to the other modules listed, MicroMason aims to be fairly
+lightweight, using one eval per parse, converting the template to a
+compiled subroutine reference, and requiring less than five hundred
+lines of Perl code.
+
+Although it notoriously difficult to fairly benchmark competing template
+frameworks, at least some anecdotal evidence indicates that this module
+performs reasonably well.
+  http://use.perl.org/~hctif/journal/25211
+  http://www.gtchat.de/templateengines/templateengines_en.html
+
+It is also highly modular, allowing users to select and enable the
+combination of features they desire. Automatic caching, safe
+compartments, post-processing and other features are available as mixin
+classes that are loaded on demand.
+
+I've recently added mixin classes that emulate the template syntax used
+by Apache::ASP, Embperl, HTML::Template, PLP, Text::Template, and
+Text::QuickTemplate.
+
+
+=head1 DISTRIBUTION STATUS
+
+This is version 2.07 of Text::MicroMason. 
+
+This module has been available on CPAN for over six years. 
+
+If you encounter any problems, please inform the current maintainer and
+I'll endeavor to patch them promptly.
+
+This module's CPAN registration should read:
+
+  Name            DSLIP  Description
+  --------------  -----  ---------------------------------------------
+  Text::          Group 11: Text Processing
+  ::MicroMason    Rdpfp  Simplified HTML::Mason Templating
+
+Please see the CPAN Testers report for a sample of systems this module
+has been tested successfully on:
+
+ http://testers.cpan.org/show/Text-MicroMason.html
+
+=head1 PREREQUISITES
+
+The required version of perl has been increased to 5.6 as of version
+1.993_01. It should work with on any standard platform which runs Perl.
+
+Although almost all currently existing features work on versions of Perl
+reaching back to 5.0, it will benefit Text::MicroMason in the long run
+if supporting legacy versions of Perl was not necessary. Please contact
+the new maintainer to gripe, if you absolutely need Text::MicroMason on
+an older version of Perl.  
+
+There is one pre-requisite module not included with the core
+distribution which must be installed from CPAN:
+L<Class::MixinFactory|Class::MixinFactory>.
+
+If you want to use the Text::Template compatibility mode, you will also
+need to install L<Text::Balanced|Text::Balanced>.
+
+Various other mixins included in MicroMason require other modules in
+order to be useful, but MicroMason installs and tests without them. (I
+should be more specific here in the future.)
+
+=head1 INSTALLATION
+
+You should be able to install this module using the CPAN shell interface:
+
+  perl -MCPAN -e 'install Text::MicroMason'
+
+Alternately, you may retrieve this package from CPAN
+(C<http://search.cpan.org/~ferrency/>).
+
+After downloading the distribution, follow the normal procedure to
+unpack and install it, using the commands shown below or their local
+equivalents on your system:
+
+  tar xzf Text-MicroMason-*.tar.gz
+  cd Text-MicroMason-*
+  perl Makefile.PL
+  make test && sudo make install
+
+
+=head1 SUPPORT
+
+If you have questions or feedback about this module, please feel free to
+contact the maintainer or original author at the e-mail address listed
+below. Although there is no formal support program, I do attempt to
+answer email promptly.
+
+I would be particularly interested in any suggestions towards
+improving the documentation, correcting any Perl-version or platform
+dependencies, as well as general feedback and suggested additions.
+
+Bug reports that contain a failing test case are greatly appreciated,
+and suggested patches will be promptly considered for inclusion in
+future releases.
+
+You can report bugs via the CPAN web tracking system, or send mail 
+to C<bug-Text-MicroMason#rt.cpan.org>, replacing C<#> with C<@>.
+
+  http://rt.cpan.org/NoAuth/Bugs.html?Dist=Text-MicroMason
+
+
+=head1 COMMUNITY
+
+If you've found this module useful or have feedback about your
+experience with it, consider sharing your opinion with other Perl users
+by posting your comment to CPAN's ratings system.
+
+  http://cpanratings.perl.org/rate/?distribution=Text-MicroMason
+
+For more general discussion, you may wish to post a message on the
+CPAN::Forum, on PerlMonks, or on the comp.lang.perl.modules newsgroup.
+These are not all monitored by the current maintainer, so if you want a
+response, please contact me directly.
+
+  http://www.cpanforum.com/dist/Text-MicroMason
+  http://perlmonks.org/?node=Seekers%20of%20Perl%20Wisdom
+  http://groups.google.com/groups?group=comp.lang.perl.modules
+
+
+=head1 THANKS
+
+My sincere thanks to the following people for their feedback and
+contributions:
+
+  Pascal Barbedor
+  Mark Hampton
+  Philip King
+  Daniel J. Wright
+  William Kern
+  Tommi Maekitalo
+  Alan Ferrency
+  Jonas Alves
+  Alexander
+  Matthew Simon Cavalletto
+  Jon Warbrick
+
+
+=head1 SOURCE MATERIAL
+
+Portions based on HTML::Mason by Jonathan Swartz. 
+
+Portions based on Embperl by Gerald Richter.
+
+Portions based on HTML::Template by Sam Tregar.
+
+Portions based on PLP by Juerd Waalboer.
+
+Portions based on Text::Template by Mark Jason Dominus.
+
+Portions based on Text::QuickTemplate by Eric J. Roode.
+
+
+=head1 AUTHOR
+
+Developed by Matthew Simon Cavalletto at Evolution Softworks.  You may
+contact the author directly at C<evo#cpan.org> or
+C<simonm#cavalletto.org>, replacing C<#> with C<@>.
+
+Currently maintained by Alan Ferrency <ferrency#cpan.org> at pair
+Networks, Inc.
+
+=head1 LICENSE
+
+Copyright 2002, 2003, 2004, 2005 Matthew Simon Cavalletto. 
+
+Portions copyright 2001 Evolution Online Systems, Inc.
+
+You may use, modify, and distribute this software under the same
+terms as Perl.
+
+=cut

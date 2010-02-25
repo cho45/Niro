@@ -1,0 +1,55 @@
+0.223  20090901
+    . No functional changes, no need to upgrade
+    + Fix Makefile.PL so that (re)installing parent under 5.10.1+
+      installs into perl/ instead of site/, patched by J.D.Hedden
+      fixes RT #49328
+
+0.222  20090828
+    . No functional changes, no need to upgrade
+    + Documentation fix suggested by Clinton Gormley
+    + Test fix for Perl compiled without PMC support,
+      spotted and fixed by Nicholas Clark
+    + Distribution changes to placate Module::Release
+
+0.221  20080306
+    . No functional changes, no need to upgrade
+    + Tests, INSTALLDIRS changed for bleadperl integration
+
+0.220  20080304
+    . No functional changes, no need to upgrade
+    + Removed beta status
+
+0.219  20071020
+    . No functional changes, no need to upgrade
+    + Added LICENSE section to clarify the license of this code
+
+0.218  20070819
+    . No functional changes
+    + Code cleanup as suggested by A. Pagaltzis
+
+0.217  20070815
+    + Fixed test failure reported by David Cantrell
+    + Ripped out most of the logic. All you can do
+      is now specify that the base classes should not
+      be loaded from a file via C<-norequire>.
+    + 5.004 compatibility restored by Sébastien Aperghis-Tramoni
+      (mostly it's the test suite that breaks ...)
+
+0.216 20070805
+    Add a test for (transparently) loading a .pmc
+    Loading from an arbitrary file is now possible
+    Class names may not contain a forward slash anymore
+
+0.215 20070802
+    Changed version to a 0.x version to indicate beta status
+    5.004 compatibility patch by Sébastien Aperghis-Tramoni
+    Added a test for a module that returns a false value on load
+    5.9.x performance improvement change - modify @ISA by assignment
+
+2.14 20070802
+    Commented out "use strict" and "use vars qw()" and "no strict()"
+    Changed @ISA modification to better suit the MRO
+
+2.13 20070801
+    Forked from base.pm
+

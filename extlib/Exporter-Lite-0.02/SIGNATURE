@@ -1,0 +1,29 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.55.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 37dc36a06aa00dbfc85d43390ce4d03e25b3eddd MANIFEST
+SHA1 a938d857885a4ac9421bc3b640568f24a0d9ca2d META.yml
+SHA1 68983e2578d6936968dc147d0d19c12e99aefa66 Makefile.PL
+SHA1 f1ff6ad424b0ba6a4dc03b1bbfa4152b6a1ad3cc lib/Exporter/Lite.pm
+SHA1 89a622e04817b25dae1cdf51b56f25c7b3432fbd t/Exporter-Lite.t
+SHA1 7154c027605cbb43345a88a80d5fd82184d68652 t/lib/Dummy.pm
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.5 (Darwin)
+
+iD8DBQFFVma6WMohlhD1QycRAp2KAKC9vpMDK40IyF3Xqer6JdArbkaBxACfWbyw
+4inSb0Z1PP7eFQezUIWYGOg=
+=G7lI
+-----END PGP SIGNATURE-----

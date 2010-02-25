@@ -1,0 +1,14 @@
+# http://module-build.sourceforge.net/META-spec.html
+#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
+name:         Text-Hatena
+version:      0.20
+version_from: lib/Text/Hatena.pm
+installdirs:  site
+requires:
+    Parse::RecDescent:             1.94
+    Regexp::Assemble:              0.28
+    Test::Base:                    0.53
+    Test::More:                    0.32
+
+distribution_type: module
+generated_by: ExtUtils::MakeMaker version 6.30

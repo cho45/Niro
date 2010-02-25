@@ -1,0 +1,15 @@
+Revision history for Perl extension DateTime::Format::SQLite
+
+0.11 Thu Dec 10 00:00:00 2009
+	- pass nanoseconds instead of fractional seconds to DateTime
+	  constructor; needed from DateTime v0.52
+	  FIXES: #52468: Test failure, reported by GRAF
+	- minor documentation fixes
+
+0.10 Sat Sep 20 00:00:00 2008
+	- minor cleanups for non-dev release
+
+0.01_20090913 Sat Sep 13 00:00:00 2008
+	- first developer release
+
+$Id: Changes 4363 2009-12-10 16:47:25Z cfaerber $	

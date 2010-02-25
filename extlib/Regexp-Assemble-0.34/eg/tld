@@ -1,0 +1,23 @@
+#! /usr/local/bin/perl -w
+#
+# tld - generate a regular expression that matches the Internet
+#       top level domains
+#
+# You can also specify an indent value to pretty-print the
+# resulting regexp. This example gives you a very good insight
+# as to how the alternations are sorted, busiest to least.
+#
+# Copyright (C) David Landgren 2005
+
+use strict;
+
+use Regexp::Assemble;
+
+my $indent = shift || 0;
+
+eval "use Net::Domain::TLD";
+$@ and die "You must install Net::Domain::TLD to run this example\n";
+
+my $re = Regexp::Assemble->new->add( Net::Domain::TLD->new->All );
+
+print $re->as_string(indent => $indent), "\n";

@@ -1,0 +1,11 @@
+use inc::Module::Install;
+name 'Devel-StackTrace-AsHTML';
+all_from 'lib/Devel/StackTrace/AsHTML.pm';
+readme_from 'lib/Devel/StackTrace/AsHTML.pm';
+build_requires 'Test::More';
+requires 'Devel::StackTrace';
+use_test_base;
+auto_include_deps;
+author_tests('xt');
+auto_set_repository;
+WriteAll;

@@ -1,0 +1,6 @@
+<%perl>
+  my $greeting = ( $ARGS{hour} > 11 ) ? 'Tag' : 'Morgen'; 
+</%perl>
+Guten <% $greeting %>, <% $ARGS{name} %>!
+
+

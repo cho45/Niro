@@ -1,0 +1,264 @@
+NAME
+    Class::MixinFactory::ReadMe - About the Mixin Class Factory
+
+SYNOPSIS
+      package MyClass;
+      use Class::MixinFactory -hasafactory;
+      sub new { ... }
+      sub foo { return "Foo Bar" }
+
+      package MyClass::Logging;
+      sub foo { warn "Calling foo"; (shift)->NEXT('foo', @_) }
+
+      package MyClass::UpperCase;
+      sub foo { uc( (shift)->NEXT('foo', @_) ) }
+
+      package main;
+
+      my $class = MyClass->class( 'Logging', 'UpperCase' );
+
+      print $class->new()->foo(); 
+      # Calls MyClass::Logging::foo, MyClass::UpperCase::foo, MyClass::foo
+
+ABSTRACT
+    This distribution facilitates the run-time generation of classes which
+    inherit from a base class and some optional selection of mixin classes.
+
+    A factory is provided to generate the mixed classes with multiple
+    inheritance. A NEXT method allows method redispatch up the inheritance
+    chain.
+
+MOTIVATION
+  The Challenge
+
+    When developing an object class that will be used by different people
+    for different purposes, I find myself drawn to solutions in which a
+    minimal base class provides the shared behavior they all need, and a
+    collection of subclasses provides layers of additional functionality.
+
+    For example, consider a text templating framework, which might be
+    separated into several elements:
+
+    *   a base class, which provides methods to convert marked-up text into
+        runnable code,
+
+    *   an extension which enhances security by runing the code in a Safe
+        compartment,
+
+    *   an extension which feeds output through an HTML-escaping filter, and
+
+    *   an extension which records internal profiling data for benchmarking
+        purposes.
+
+    (See Text::MicroMason for an example of this design.)
+
+  A Bad Approach
+
+    A naive implementation of this might use a subclass for each behaviour,
+    and look like the following:
+
+                        +---------+
+                        |   Base  |
+                        +---------+
+                             |
+           +-----------------+-----------------+
+           v                 v                 v
+      +---------+       +---------+       +---------+
+      |Benchmark|       |  Filter |       |   Safe  | @ISA=qw(Base)
+      +---------+       +---------+       +---------+
+
+    The well-known problem with this implementation appears when you want to
+    combine several features:
+
+                        +---------+
+                        |   Base  |
+                        +---------+
+                             |
+           +-----------------+-----------------+
+           v                 v                 v
+      +---------+       +---------+       +---------+
+      |Benchmark|       |  Filter |       |   Safe  | @ISA=qw(Base)
+      +---------+       +---------+       +---------+
+                             |                 |
+                             +--------+--------+
+                                      v
+                               +-------------+
+                               | Safe_Filter | @ISA=qw(Filter Safe)
+                               +-------------+
+
+    This is the dreaded "diamond inheritance" problem: if Base provides a
+    compile() method, which Filter and Safe each override to perform
+    additional actions before or after calling SUPER::compile(), how can we
+    ensure they are all called in the correct sequence?
+
+  A Good Approach
+
+    The standard software engineering solution is to replace the use of
+    inheritance with decomposition into several different classes of
+    objects, which then cooperate through decoration and delegation; for
+    example, using separate classes for a resolver, a lexer, a parser, a
+    compiler, and an output channel. (See HTML::Mason for an example of this
+    design.)
+
+    Indeed, composition is an underutilized design technique, and there are
+    many times when inheritance is not the best tool to use. But of course,
+    in Perl there's more than one way to solve this problem, one of which is
+    facilitated by this distribution.
+
+  A Different Approach
+
+    We can rearrange our class hierarchy to avoid diamond inheritance by
+    using a base and a collection of mixin classes, which don't directly
+    inherit from the base class:
+
+      +---------+       +---------+       +---------+       +---------+
+      |Benchmark|       |  Filter |       |   Safe  |       |   Base  | 
+      +---------+       +---------+       +---------+       +---------+
+                             |                 |                 |
+                             +-----------------+-----------------+
+                                               v
+                                        +-------------+
+                                        | Safe_Filter | @ISA=qw(Filter 
+                                        +-------------+     Safe Base)
+
+    However, in this condition our mixin classes can't call SUPER methods at
+    all! Instead, another redispatch mechanism is needed, one that is able
+    to back-track through the inheritance tree and explore other branches.
+    (See the NEXT manpage for such an implementation.)
+
+    The order in which mixins are stacked is significant, so the caller does
+    need to have some understanding of how their behaviors interact. For
+    example, you'd typically want to ensure that the Benchmarking mixin was
+    the first in the chain, so that it could time everything later in the
+    sequence.
+
+  This Distribution
+
+    The Class::MixinFactory distribution provides serveral elements to
+    facilitate tihs kind of dynamic mixin architecture. The top level
+    package is just a facade that loads the other necessary classes and
+    provides a few import options for compile-time convenience. (See the
+    Class::MixinFactory manpage.)
+
+    To generate an object with some combination of mixins, you first use a
+    mixin factory to generate a mixed class. If a class with that
+    combination of classes has already been created, it is reused. You can
+    add a factory method to your base class, create a separate factory
+    object, or inherit to produce a factory class. (See the
+    Class::MixinFactory::Factory manpage.)
+
+    To allow mixin classes to redispatch to subsequent classes, all mixed
+    classes also inherit from a class which provides a NEXT() method. (If
+    you would prefer, your mixin class can alternately use the AUTOLOAD
+    solution provided by the NEXT::ACTUAL module from CPAN, or any other
+    equivalent re-dispatch mechanism.) (See the Class::MixinFactory::NEXT
+    manpage.)
+
+RELATED MODULES
+    There are number of other modules on CPAN that also support mixins,
+    method importing, or run-time multiple inheritance, while others don't
+    use mixins but are addressing a similar area of concern.
+
+    *   The mixin, Class::Mixin, and Spiffy modules support mixin classes
+        but don't have a configurable factory object or support run-time
+        mixin selection.
+
+    *   The Class::Mix and Class::Mutator modules provide run-time class
+        generation with multiple inheritance, but don't provide a
+        configurable factory object or a redispatch technique.
+
+    *   The Class::Factory module has a factory interface, but doesn't
+        support multiple inheritance.
+
+    *   The NEXT module provides a backtracking equivalent to SUPER similar
+        to the NEXT method included here, but uses AUTOLOAD rather than a
+        universal method.
+
+    *   The Class::Delegate and other modules support decoration to address
+        this problem via decomposition.
+
+    *   The Class::Role, Class::Roles and Class::Trait modules support
+        composing shared behaviors into your class.
+
+VERSION
+    This is version 0.92.
+
+    Elements of the interface remain open to change.
+
+BUGS
+    This module is new and relatively untested.
+
+    Please report any problems you encounter to the author at the below
+    address.
+
+INSTALLATION
+    This module should work with any version of Perl 5, without platform
+    dependencies or additional modules beyond the core distribution.
+
+    You should be able to install this module using the CPAN shell
+    interface:
+
+      perl -MCPAN -e 'install Class::MixinFactory'
+
+    Alternately, you may retrieve this package from CPAN
+    ("http://search.cpan.org/~evo/") or from the author's site
+    ("http://www.evoscript.org/Class-MixinFactory").
+
+    After downloading the distribution, follow the normal procedure to
+    unpack and install it, using the commands shown below or their local
+    equivalents on your system:
+
+      tar xzf Class-MixinFactory-*.tar.gz
+      cd Class-MixinFactory-*
+      perl Makefile.PL
+      make test && sudo make install
+
+SUPPORT
+    If you have questions or feedback about this module, please feel free to
+    contact the author at the below address. Although there is no formal
+    support program, I do attempt to answer email promptly.
+
+    I would be particularly interested in any suggestions towards improving
+    the documentation, correcting any Perl-version or platform dependencies,
+    as well as general feedback and suggested additions.
+
+    Bug reports that contain a failing test case are greatly appreciated,
+    and suggested patches will be promptly considered for inclusion in
+    future releases.
+
+    To report bugs via the CPAN web tracking system, go to
+    "http://rt.cpan.org/NoAuth/Bugs.html?Dist=Class-MixinFactory" or send
+    mail to "Dist=Class-MixinFactory#rt.cpan.org", replacing "#" with "@".
+
+    If you've found this module useful or have feedback about your
+    experience with it, consider sharing your opinion with other Perl users
+    by posting your comment to CPAN's ratings system
+    ("http://cpanratings.perl.org/rate/?distribution=Class-MixinFactory").
+
+    For more general discussion, you may wish to post a message on PerlMonks
+    ("http://perlmonks.org/?node=Seekers%20of%20Perl%20Wisdom") or on the
+    comp.lang.perl.misc newsgroup
+    ("http://groups.google.com/groups?group=comp.lang.perl.misc").
+
+AUTHOR
+    Developed by Matthew Simon Cavalletto at Evolution Softworks. You may
+    contact the author directly at "evo#cpan.org" or
+    "simonm#cavalletto.org", replacing "#" with "@".
+
+    Custom development and technical consulting are available at
+    "www.evolutionsoftworks.com". More free Perl software is available at
+    "www.evoscript.org".
+
+THANKS
+    My sincere thanks to the Perl Monks community for their feedback on
+    earlier versions of this commentary.
+
+      http://perlmonks.org/index.pl?node_id=398061
+      http://perlmonks.org/index.pl?node_id=399040
+
+LICENSE
+    Copyright 2004 Matthew Simon Cavalletto.
+
+    You may use, modify, and distribute this software under the same terms
+    as Perl.
+

@@ -1,0 +1,14 @@
+This module handles formatting and parsing of SQLite date and time
+related data types.
+
+INSTALLATION
+
+To install this module type the following in the distribution
+directory:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+$Id: README 4068 2008-09-20 18:41:28Z cfaerber $

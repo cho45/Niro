@@ -1,0 +1,16 @@
+(^|/)\.
+^MANIFEST\.bak
+^Makefile$
+^Makefile\.old
+^blib/
+\.tar\.gz$
+^pm_to_blib
+dbix_sqlengine_seq
+test_data
+htmldoc/
+cover_db
+DBIx-SQLEngine-[^/]+/
+sqle_test
+(^|/)\d{3}
+test.config$
+make_extras

@@ -1,0 +1,78 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.55.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 8d50878004d8d5103e1f44dc3df2899419d3a59d AUTHORS
+SHA1 7a95fc8778fbce1f60d222e0d0d1dbb6c649461f Artistic
+SHA1 58303707b051600b6c0820b2d7777f6391ae652e Build.PL
+SHA1 531e6b5c470d4726483fd68833391653eace0a92 COPYING
+SHA1 00b8084495b5b9cdc4bcbb7dd90b912b052453ee CREDITS
+SHA1 271b8d5133450916bf41c038027741e6fcdd943f Changes
+SHA1 7a273ac56274461c440f658bdab758a94b31ac23 INSTALL
+SHA1 a4f818254f51015b8d7606b73db0ad92f8641463 LICENCE
+SHA1 70635bebe1a8231f6558105c94c8990ea00ededa MANIFEST
+SHA1 d31c065d32a5b2b79340912c172c3069d29f32bc MANIFEST.SKIP
+SHA1 108b5bb7e850196df8ef1023704e024b24d19f47 META.yml
+SHA1 cd14ada78fb37a0d926edd86eddcdf7f939de582 Makefile.PL
+SHA1 6b2a574958154f535e7ea7d1a7946ebb3a34e93c README
+SHA1 f35ac145f4a1379286bf4cebb9f2b268d55e10a4 examples/Apache.pm
+SHA1 0bc31aa3397f1078efb83a6eff3ca4b3396a8921 examples/Fall.pm
+SHA1 dae51da84aeab9d3dcc634a820374ccd9070b4ee examples/ICal.pm
+SHA1 1a9e35a549ac6b6a854314fc0424badb6c09833d examples/MySQL.pm
+SHA1 d882c0f4639ed4721524afbd1ac4a5bedb471d9c examples/Simple.pm
+SHA1 bdadcfd2bdbac90edbda48322fea700204dbeb05 examples/Tivoli.pm
+SHA1 319195d800e24f7db0fcb73765c5ffd8abf020cf examples/W3CDTF.pm
+SHA1 30cad078a9272a715d516f397235f406a85dfe72 lib/DateTime/Format/Builder.pm
+SHA1 6b9d88d681693cb8ae7fa40a3750980770f34901 lib/DateTime/Format/Builder.pod
+SHA1 fa481193752c51ca72e1d14bcc6d9b0a98b5dfea lib/DateTime/Format/Builder/Parser.pm
+SHA1 d5c9f085e6f4915f7b1147cad0dbe60c9f634d44 lib/DateTime/Format/Builder/Parser/Dispatch.pm
+SHA1 cb0bf72d2c17d66d22f97d9d0468a6164f12c12a lib/DateTime/Format/Builder/Parser/Quick.pm
+SHA1 d58def0d461fe63867b5510d5d73f67fc47850d1 lib/DateTime/Format/Builder/Parser/Regex.pm
+SHA1 c1a2067834c21a50f82d762d9f522d8f9e9e1d1a lib/DateTime/Format/Builder/Parser/Strptime.pm
+SHA1 7041bcfc78170703eeac7a6405de36c3636fc9dc lib/DateTime/Format/Builder/Parser/generic.pm
+SHA1 43f562e08aa543ac1a5702e6186fa56ebf34fc70 lib/DateTime/Format/Builder/Tutorial.pod
+SHA1 6a266926a5fbae4b8656b7bcc17019b8ebe9c2d2 t/00sig.t
+SHA1 c41574ca2c239b0c8dd9426018ee41eabb06e437 t/99pod.t
+SHA1 373ecfe45caebdec70219f50dec8541a7e6355f3 t/altcon.t
+SHA1 8e406abb40b61c8b8995ed5184c3cf43bedb3128 t/basic.t
+SHA1 49299a9e217622c1885d141961a8756d24c03c2f t/clone.t
+SHA1 c4234c021ab7a45efe7188a425ebdf3e6aa5aff5 t/create.t
+SHA1 2020e638ff3a3bec39a567e9fd309f78013fc74f t/dispatch.t
+SHA1 5c242dc3a5d15d5f04b9e53b704c98b5d9f39761 t/extra.t
+SHA1 62cc29af5fae11eb3df1a0fbc3932f5238356621 t/fall.t
+SHA1 3762c8dff93c42a864e9be17e545f95a7446f2e8 t/import.t
+SHA1 54fa6e9f4f2390f680b2cdf82b2c28c769b4a0b2 t/lengths.t
+SHA1 430b341a1e1a925c286ef5af0c8fba5c1b3b2a01 t/memory-cycle.t
+SHA1 cb106dcdbf3693444dac4c1c2bd02dd8c97b58f9 t/mergecb.t
+SHA1 6d8ad84c0317984a927a72952da0f10d60388fc0 t/newclass.t
+SHA1 ca26f16c40ebd1f956c214e9f7969c24407f7b9a t/nocon.t
+SHA1 ddafb1a528674c0173dff7520d0dd027639b8f00 t/noredef.t
+SHA1 572bfe300a7692945910f7158d3ac94c42b2f73c t/on_fail.t
+SHA1 1dbc27397a5cd1a7633002ac25cd3d38c68f8a28 t/on_fail_regex.t
+SHA1 a4d32ed1456be73fdc93526a5354140ced61c168 t/on_fail_sub.t
+SHA1 02884d987b824099604c06c797face77173f203f t/param.t
+SHA1 b806d44b098ea42a3704a18a90d2e34320eb9782 t/quick.t
+SHA1 4b025e4554b4f31a5470043038f53cfac1530c7a t/self.t
+SHA1 1bd354d59a86025e67e36da42b46d317ac31dfb9 t/strptime.t
+SHA1 0c497ecebe1a9537907aafd08b53aaa513e0e982 t/taint.t
+SHA1 3d6ba3abe89d1799e3d2739237ab1f29affc4192 t/verbose.t
+SHA1 52f251e04fbd2772bff6c6fa62731804895305fc t/wholeclass.t
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.6 (GNU/Linux)
+
+iD8DBQFG2dJS3Or3ZzQuifMRArM/AJ9JCgEioSc/t8tAav5HZn08hznlBACdEkDJ
+RuEpCtzNgEq/qQnPdrMy4H4=
+=Z71l
+-----END PGP SIGNATURE-----

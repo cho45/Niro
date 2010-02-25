@@ -1,0 +1,45 @@
+#! /usr/local/bin/perl -w
+#
+# naive - generate a regular expression that will lex regular expressions
+# it is naive in the sense that it can't lex certain patterns, such as a
+# pattern that contains nested parentheses (e.g. /ab(?:cd(?ef)?gh)+ij/ )
+#
+# The emitted regular expression is the default pattern that Regexp::Assemble
+# uses to pick apart a string into tokens suitable for being assembled. If it
+# isn't sufficiently sophisticated, you will have to supply your own lexer.
+#
+# Copyright (C) David Landgren 2004-2005
+
+use strict;
+
+my $directive = q{[bABCEGLQUXZ]};
+
+my $punct  = q{[^\\w]};
+
+my $meta   = q{[aefnrtdDwWsS]};
+my $ctrl   = q{c.};
+my $octal  = q{0\\d{2}};
+my $hex    = q{x(?:[\\da-fA-F]{2}|{[\\da-fA-F]{4}})};
+my $named  = q{N\\{\w+\\}};
+my $prop   = q{[Pp](?:\\{\w+\\}|.)};
+
+my $single = q{[^\\w\\/{|}-]};
+
+my $modifiable = qq{$punct|$meta|$ctrl|$octal|$hex|$named|$prop};
+
+my $modifier   = q{(?:[*+?]\\??|\\{\\d+(?:,\\d*)?\\}\\??)?};
+
+my $backslash  = qq{\\\\(?:$directive|[lu].|(?:$modifiable)$modifier)};
+
+my $class  = q{\\[.*?(?<!\\\\)\\]};
+my $group  = q{\\(.*?(?<!\\\\)\\)};
+# \$Default_Lexer = qr/(?![[(\\\\]).$modifier|$backslash|$class$modifier|$group$modifier/;
+
+print <<PATTS;
+# The following patterns were generated with eg/naive
+\$Default_Lexer = qr/(?![[(\\\\]).$modifier|$backslash|$class$modifier|$group$modifier/;
+
+\$Single_Char   = qr/^(?:\\\\(?:$meta|$ctrl|$single|$octal|$hex)|[^\$^])\$/;
+PATTS
+
+# my brain hurts just looking at this

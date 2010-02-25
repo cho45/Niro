@@ -1,0 +1,413 @@
+Revision history for Perl extension Regexp::Assemble.
+
+0.34 2008-06-17 20:20:14 UTC
+    - Rewrite the usage of _re_sort() in order to deal
+      with blead change #33874. Bug smoked out by Andreas
+	  König.
+
+0.33 2008-06-07 14:40:57 UTC
+    - Tweaked _fastlex() to fix bug #36399 spotted by Yves
+      Blusseau ('a|[bc]' becomes 'a\|[bc]').
+    - Recognise POSIX character classes (e.g. [[:alpha:]].
+      Bug also spotted by Yves Blusseau (bug #36465).
+
+0.32 2007-07-30 17:47:39 UTC
+    - Backed out the change introduced in 0.25 (that created
+      slimmer regexps when custom flags are used). As things
+      stood, it meant that '/' could not appear in a pattern
+      with flags (and could possibly dump core). Bug #28554
+      noted by David Morel.
+    - Allow a+b to be unrolled into aa*b, as that may allow
+      further reductions (bug #20847 noted by Philippe Bruhat).
+      Not completely implemented, but bug #28554 is sufficient
+      to push out a new release.
+    - eg/assemble understands -U to enable plus unrollings.
+    - Extended campaign of coverage improvements made to the
+      test suite caught a minor flaw in source().
+
+0.31 2007-06-04 20:40:33 UTC
+    - Add a fold_meta_pairs flag to control the behaviour of
+      [\S\s] (and [\D\d], [\W\w]) being folded to '.' (bug
+      #24171 spotted by Philippe Bruhat).
+
+0.30 2007-05-18 15:39:37 UTC
+    - Fixup _fastlex() bug in 5.6 (unable to discriminate \cX).
+      This allows bug #27138 to be closed.
+
+0.29 2007-05-17 10:48:42 UTC
+    - Tracked patterns enhanced to take advantage of 5.10
+      (and works again with blead).
+    - The mutable() functionality has been marked as
+      deprecated.
+    - mailing list web page was incorrect (noted by Kai
+      Carver)
+
+0.28 2006-11-26 21:49:26 UTC
+    - Fixed a.+ bug (interpreted as a\.+) (bug #23623)
+    - Handle /[a]/ => /a/
+
+0.27 2006-11-01 23:43:35 UTC
+    - rewrote the lexing of patterns in _fastlex(). Unfortunately
+      this doesn't speed things up as much as I had hoped.
+    - eg/assemble now recognises -T to dump timing statistics.
+    - file parameter in add_file() may accept a single scalar
+      (or a list, as before).
+    - rs parameter in new() was not recognised as an alias
+      for input_record_separator,
+    - anchor_string_absolute as a parameter to new() would not
+      have worked correctly.
+    - a couple of anchor_<mumble>() methods would not have
+      worked correctly.
+    - Added MANIFEST.SKIP, now that the module is under
+      version control.
+    - Broke out the debug tests into a separate file
+      (t/09_debug.t).
+    - cmp_ok() tests that tested equality were replaced by is().
+    - tests in t/03_str.t transformed to a data-driven approach,
+      in order to slim down the size of the distribution tarball.
+    - Typo spotted in the documentation by Stephan (bug #20425).
+
+0.26 2006-07-12 09:27:51 UTC
+    - Incorporated a patch to the test suite from barbie, to work
+      around a problem encountered on Win32 (bug #17507).
+    - The "match nothing" pattern was incorrect (but so obscure
+      as to be reasonably safe).
+    - Removed the unguarded tests in t/06_general.t that the
+      Test::More workaround in 0.24 skips.
+    - Newer versions of Sub::Uplevel no longer need to be guarded
+      against in t/07_warning.t.
+
+0.25 2006-04-20 18:04:49
+    - Added a debug switch to elapsed pattern insertion and
+      pattern reduction times. Upgraded eg/assemble to make
+      use of it.
+    - Tweaked the resulting pattern when it uses 'imsx'
+      flags, giving (?i-xsm:(?:^a[bc]|de)) instead of
+      (?-xism:(?i:(?:^a[bc]|de))) .
+    - Changed the "match nothing" pattern to something slightly
+      less unsurprising to those who peek behind the curtain.
+      Reported by Philippe Bruhat (bug #18266).
+    - Tweaked the dump() output for chars \x00 .. \x1f
+
+0.24 2006-03-21 08:50:42
+    - Added an add_file() method that allows a file of patterns to
+      be slurped into an object. Makes for less make-work code in
+      the client code (and thus one less thing to go wrong there).
+    - Added anchor methods that tack on \b, ^, $ and the like to an
+      assembled pattern.
+    - Rewrote new() and clone(). The latter is now no longer needs
+      to know the attribute names.
+    - _lex_stateful() subsumed into _lex()
+    - \d and \w assemble to \w instead of [\w\d] (and similarly for
+      \D and \W).
+    - The Test::More workaround stated in the 0.23 changes didn't
+      actually make it into t/06_general.t
+    - Rewrote tests in 06_general.t to use like()/unlike() instead
+      of ok(), and some more ok()'s replaced by cmp_ok()
+      elsewhere.
+    - Diagnostics for t/00_basic.t:xcmp was incorrect (displayed
+      first param instead of second).
+    - Guard against broken Sub::Uplevel in t/07_warning.t for
+      perl 5.8.8.
+    - Pretty-print characters [\x00-\x1f] in _dump() routines.
+    - Spell-checked the POD!
+
+0.23 2006-01-03 17:03:35
+    - More bugs in the reduction code shaken out by examining
+      powersets. Exhaustive testing (iterating through the
+      powerset of a, b, c, d, e) makes me think that the
+      pathological cases are taken care of. The code is horrible,
+      though, a rewrite is next on the agenda.
+    - Guard against earlier buggy versions of Test::More (0.47)
+      in t/06_general.t
+    - Carp::croak rewritten as Carp::croak() to fix failures
+      noted on blead.
+    - Rewrote _re_path() for speed.
+    - added lexstr() routine.
+    - added eg/stress-test program.
+
+0.22 2005-12-02 11:31:42 UTC
+    - Amended the test suite to ensure that it runsh0orrectly under
+      5.005_04. (The documentation was updated to reflect the
+      limitations). Sbastien Aperghis-Tramoni provided the impetus
+      for this fix. No other changes in functionality.
+    - The SKIP counts in t/06_general.t were out of whack for 5.6
+      and 5.005 testing. 
+
+0.21 2005-11-26 16:16:06 UTC
+    - Fixed a nasty bug after generating a series of lists of
+      patterns using Data::PowerSet: ^abc$ ^abcd$ ^ac$ ^acd$ ^b$
+      ^bc$ ^bcd$ ^bd$ would produce the incorrect
+      ^b(?:(?:ab?)?c)?d?$ pattern. It should if fact produce the
+      ^(?:ab?c|bc?)d?$ pattern.
+    - Improve the reduction of, for example, 'sing', 'singing',
+      'sting'. In prior versions this would produce
+      s(?:ing(?:ing)?|ting), now it produces s(?:(?:ing)?|t)ing.
+      The code is a bit horrendous (especially the part at the end
+      of _reduce_path). And it's still not perfect. See the TODO.
+    - Duplicate pattern detection wasn't quite right.  The code
+      was lacking an else clause, which meant 'abcdef' followed by
+      'abc' would have the latter treated as a duplicate.
+    - Now that there's a statistic that keeps track of when a
+      duplicate input pattern was encountered, it becomes possible
+      to let the user know about it. Two possibilities are available:
+      a simple carp(), or a callback for complete control.  The first
+      time I tried this out on a real file of 3558 patterns, it found
+      9 dups (or rather, 8 dups and a bug in the module).
+    - The above improvement means the test suite now requires
+      Test::Warn. As a result, t/07_pod.t was subsumed into
+      t/00_basic.t and t/07_warning.t was born.
+    - Added an eg/ircwatcher script that demonstrates how to set up a
+      dispatch table on a tracked regular expression. Credit to David
+      Rigaudière for the idea.
+    - Made sure all routines use an explicit return when it makes
+      sense to do so. (I have a tendency to use implicit returns,
+      which is evil).
+    - the Carp module is require'ed on an on-demand basis.
+    - eg/naive updated to bring its idea of $Single_Char in line with
+      Assemble.pm.
+    - Cleaned up typos and PODos in the documentation.  Fixed minor
+      typo noted by David Rigaudière.
+    - Reworked as_string() and re() to play nicely with Devel::Cover,
+      but alas, the module no longer runs under D::C at all. Something
+      to do with the overloading of "" for re()?
+
+0.20 2005-11-07 18:03:32 UTC
+    - Fixed long-standing indent bug:
+      $ra->add( 'a\.b' )->add( 'a-b' )->as_string(indent=>2)
+      ... would produce a(?:\.|-b) instead of a[-.]b.
+    - Fixed bug ($ and ^ not treated correctly). See RT ticket
+      #15522. Basically, '^a' and 'ma' produced [m^]a instead
+      of (?:^|m)a
+    - Statistics! See the stats_* methods.
+    - eg/assemble now has an -s switch to display these
+      statistics
+    - Minor tweak to t/02_reduce.t to get it to play nicely
+      with Devel::Cover.
+    - t/02_reduce.t had an unnecessary use Data::Dumper.
+
+0.19 2005-11-02 15:16:16 UTC
+    - Change croaking diagnostic concerning Default_Lexer.
+      Bug spotted by barbie in ticket #15044.
+    - Pointer to C<Tree::Trie> in the documentation.
+    - Excised Test::Deep probe in 00_basic.t, since the
+      module is no longer used.
+    - Detabbed eg/*
+
+0.18 2005-10-08 20:37:53 UTC
+    - Fixed '\Q[' to be as treated as '\[' instead of '['.
+      What's more, the tests had this as the Right Thing.
+      What was I thinking? Wound up rewriting _lex_stateful
+      in a much less hairier way, even though it now uses
+      gotos.
+    - Introduced a context hash for dragging around the bits
+      and pieces required by the descent into _reduce_path.
+      It doesn't really help much right now, but is vital for
+      solving the qw(be by my me) => /[bm][ey]/ problem. See
+      TODO for more notes.
+    - Fixed the debug output to play nicely with the test
+      harness (by prefixing everything with a #). It had never
+      been a problem, but you never know.
+    - Added a script named 'debugging' to help people figure
+      out why assembled patterns go wonky (which is invariably
+      due to nested parentheses).
+    - Added a script 'tld', that produces a regexp for
+      matching internet Top Level Domain names. This happens to
+      be an ideal example of showing how the alternations are
+      sorted.
+    - Added a script 'roman', that produces a regexp for
+      matching Roman numerals. Just for fun.
+    - Removed the 'assemble-check' script, whose functionality
+      is adequately dealt with via 'assemble -t'.
+    - Tightened up the explanation of why tracked patterns are
+      bulkier
+    - ISOfied the dates in this file.
+
+0.17 2005-09-10 16:41:22 UTC
+    - Add capture() method.
+    - Restructure _insert_path().
+    - Factor out duplicated code introduced in 0.16 into
+      _build_re().
+    - Ensure that the test suite exercises the fallback
+      code path for when Storable is missing, even if
+      Storable is available.
+    - Added test_pod_coverage, merely to earn a free
+      Kwalitee point.
+
+0.16 2005-08-22 23:04:02 UTC
+    - Tracked patterns silently ignored imsx flags. Spotted by
+      Bart Lateur.
+
+0.15 2005-04-27 06:50:31 UTC
+    - Oops. Detabbed all the files and did not rerun the tests.
+      t/03_str.t explicitly performs a test on a literal TAB
+      character, and so it failed. Always, always, *ALWAYS* run
+      the test suite as the last task before uploading. Grrr.
+
+0.14 2005-04-27 00:32:43 UTC
+    - Performance tuning release. Played around significantly
+      with _insertr and lex but major improvement will only
+      come about by writing the lexing routine in C.
+    - Reordered $Default_Lexer to bring the most common cases
+      to the front of the pattern.
+    - Inline the effects of \U, \L, \c, \x. This is handled by
+      _lex_stateful (which offloads some of the worst case
+      lexing costs into a separate routine and thus makes the
+      more usual cases run faster). Handling of \Q in the
+      previous release was incorrect. (Sigh).
+    - Backslash slashes.
+    - Passed arrays around by reference between _lex and a
+      newly introduced _insertr routine.
+    - Silenced warning in _slide_tail (ran/reran)
+    - Fixed bug in _slide_tail (didn't handle '0' as a token).
+      One section of the code used to do its own sliding, now it
+      uses _slide_tail.
+    - Fixed bug in _node_eq revealed by 5.6.1 (implicit ordering
+      of hash keys).
+    - Optimized node_offset()
+    - replace ok() in tests by better things (is, like, ...)
+    - removed use of Test::Differences, since it doesn't work on
+      complex structures.
+
+0.13 2005-04-11 21:59:26 UTC
+    - Deal with \Q...\E patterns.
+    - $Default_Lexer pattern fails on 5.6.x: it would lex
+      '\-' as '\', '-'. 
+    - Tests to prove that the global $_ is not clobbered
+      by the module.
+    - Used cmp_ok rather than ok where it makes sense.
+    - Added a (belated) DEBUG_LEX debugging mode
+
+0.12 2005-04-11 23:49:16 UTC
+    - Forgot to guard against the possibility of
+      Test::Differences not being available. This would cause
+      erroneous failures in the test suite if it was not
+      installed.
+    - Quotemeta was still giving troubles. Exhaustive testing
+      also turned up the fact that a bare add('0') would be
+      ignored (and thus the null-match pattern would be returned.
+    - More tweaks to the documentation.
+
+0.11 Sat Apr 9 19:44:19 2005 UTC
+    - Performed coverage testing with Devel::Cover
+      Numerous tests added as a result. Borderline bugs
+      fixed (bizarre copy of ARRAY in leave under D::C -
+      fixed in 0.10).
+    - Finalised the interface to using zero-width lookahead
+      assertions. Depending on the match/failure ratio of
+      the pattern to targets, the pattern execution may be
+      slower with ZWLAs than without. Benchmark it.
+    - Made _dump call _dump_node if passed a reference to a
+      hash. This simplifies the code a bit, since one no
+      longer has to worry about whether the thing we are
+      looking at is a node or a path. All in all a minor
+      patch, just to tidy up some loose ends before
+      moving to heftier optimisations.
+    - The fix in 0.10 for quotemeta didn't go far enough.
+      Hopefully this version gets it right.
+    - A number of minor tweaks based on information
+      discovered during coverage testing.
+    - Added documentation about the mailing list. Sundry
+      documentation tweaks.
+
+0.10 2005-03-29 09:01:49 UTC
+    - Correct Default_Lexer$ pattern to deal with the
+      excessively backslashed tokens that C<quotemeta>
+      likes to produce. Bug spotted by Walter Roberson.
+    - Added a fix to an obscure bug that Devel::Cover
+      uncovered. The next release will fold in similar
+      improvements found by using Devel::Cover.
+
+0.09 2005-01-22 9:28:21 UTC
+    - Added lookahead assertions at nodes. (This concept is
+      shamelessly pinched from Dan Kogai's Regexp::Optimizer).
+      The code is currently commented out, because in all my
+      benchmarks the resulting regexps are slower with them.
+      Look for calls to _combine if you want to play around
+      with this.
+    - $Default_Lexer and $Single_Char regexps updated to fix
+      a bug where backslashed characters were broken apart
+      between the backslash and the character, resulting in
+      uncompilable regexps.
+    - Character classes are now sorted to the left of a list of
+      alternations.
+    - Corrected license info in META.yml
+    - Started to switch from ok() to cmp_ok() in the test suite
+      to produce human-readable test failures.
+
+0.08 2005-01-03 11:23:50 UTC
+    - Bug in insert_node fixed: did not deal with the following
+      correctly: qw/bcktx bckx bdix bdktx bdkx/ (The assymetry
+      introduced by 'bdix' threw things off, or something like
+      that).
+    - Bug in reduced regexp generation (reinstated code that had
+      been excised from _re_path() et al).
+    - Rewrote the tests to eliminate the need for Test::Deep.
+      Test::More::is_deeply is sufficient.
+
+0.07 2004-12-17 19:31:18 UTC
+    - It would have been nice to have remembered to update the
+      release date in the POD, and the version in the README.
+
+0.06 2004-12-17 17:38:41 UTC
+    - Can now track regular expressions. Given a match, it is
+      possible to determine which original pattern gave rise to the
+      match.
+    - Improved character class generation: . (anychar) was not
+      special-cased, which would have lead to a.b axb giving a[.x]b
+      Also takes into account single-char width metachars like \t
+      \e et al. Filters out digits if \d appears, and for similar
+      metachars (\D, \s, \W...)
+    - Added a pre_filter method, to perform input filtering prior
+      to the pattern being lexed.
+    - Added a flags method, to allow for (?imsx) pattern modifiers.
+    - enhanced the assemble script: added -b, -c, -d, -v;
+      documented -r
+    - Additions to the README
+    - Added Test::Simple and Test::More as prerequisites.
+
+0.05 2004-12-10 11:52:13 UTC
+    - Bug fix in tests. The skip test in version 0.04 did not deal
+      correctly with non-5.6.0 perls that do not have Test::Deep
+      installed.
+
+0.04 2004-12-09 22:29:56 UTC
+    - In 5.6.0, the backlashes in a quoted word list, qw[ \\d ],
+      will have their backslashes doubled up. In this case, don't
+      run the tests. (Reading from a file or getting input from
+      some other source other than qw[] operators works just fine).
+
+0.03 2004-12-08 21:55:27 UTC
+    - Bug fix: Leading 0s could be omitted from paths because of the
+      difference between while($p) versus while(defined($p)).
+    - An assembled pattern can be generated with whitespace. This can be
+      used in conjunction with the /x modifier, and also for debugging.
+    - Code profiled: dead code paths removed, hotspots rewritten to run
+      more quickly.
+    - Documentation typos and wordos.
+    - assemble script now accepts a number of command line switches to
+      control its behaviour.
+    - More tests. Now with Test::Pod.
+
+0.02 2004-11-19 11:16:33 UTC
+    - An R::A object that has had nothing added to it now produces a
+      pattern that explicitly matches nothing (the original behaviour would
+      match anything).
+    - An object can now chomp its own input. Useful for slurping files. It
+      can also filter the input tokens and discard patterns that don't adhere
+      to what's expected (sanity checking e.g.: don't want spaces).
+    - Documented and added functions to allow for the lexer pattern to be
+      manipulated.
+    - The reset() method was commented out (and the test suite didn't catch
+      the fact).
+    - Detabbed the Assemble.pm, eg/* and t/* files (I like interpreting
+      tabs as four spaces, but this produces horrible indentation on
+      www.cpan.org).
+    - t/00_basic.t test counts were wrong. This showed up if Test::Deep was
+      not installed.
+    - t/02_reduce.t does not need to 'use Data::Dumper'.
+    - Tweaked eg/hostmatch/hostmatch; added eg/assemble, eg/assemble-check
+    - Typos, corrections and addtions to the documentation.
+
+0.01 2004-07-09 21:05:18 UTC
+    - original version; created by h2xs 1.19 (seriously!)

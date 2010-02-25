@@ -1,0 +1,23 @@
+NAME
+    Class::MixinFactory::Changes - Revision history for Class::MixinFactory.
+
+HISTORY
+  Version 0.92
+
+    2004-11-16 Fixed namespace stash check to require missing classes when
+    needed.
+
+    2004-11-16 Documentation tweaks.
+
+  Version 0.91
+
+    2004-11-15 Packaging and documentation. Separated Factory and Facade
+    classes.
+
+    2004-11-14 Tests and additional interface and documentation work.
+
+    2004-11-13 Created.
+
+SEE ALSO
+    the Class::MixinFactory::ReadMe manpage
+

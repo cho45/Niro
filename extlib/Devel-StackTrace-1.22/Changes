@@ -1,0 +1,238 @@
+1.22  Jul 15, 2009
+
+- Apparently, overload::StrVal on older Perls (5.8.5, but not 5.8.8)
+  tried to call a stringification method if it existed. So now,
+  Devel::StackTrace just uses overload::AddrRef instead, which should
+  always be safe. Reported by Michael Stevens. Fixes RT #47900.
+
+
+1.21  Jul 1, 2009
+
+- Overloaded objects which didn't provide a stringification method
+  cause Devel::StackTrace to die when respect_overload was
+  true. Reported by Laurent Dami. RT #39533.
+
+- Added a frame_filter option which allows for fine-grained control
+  over what frames are included in a trace. Based on (but expanded)
+  from a patch proposed by Florian Ragwitz. RT #47415.
+
+
+1.20  Oct 25, 2008
+
+- The change in 1.15 to object creation broke the no_refs feature,
+  causing references to be stored until the trace's frame objects were
+  created.
+
+* Exception::Class objects are always stringified by calling
+  overload::StrVal().
+
+
+1.1902  Jul 16, 2008
+
+- This release just contains another test fix.
+
+- The new tests for bad utf-8 apparently fail with any Perl before
+  5.8.8. Reported by Lee Heagney. RT #37702.
+
+
+1.1901  Jun 13, 2008
+
+- This release just contains a test fix.
+
+- The new tests for bad utf-8 fail with Perl 5.8.x where x <=
+  6. Apparently, utf-8 was just more broken back then. Reported by
+  Andreas Koenig's smokebots.
+
+
+1.19  Jun 13, 2008
+
+- Dropped support for Perl 5.005.
+
+- If a function was in stack trace had been called with invalid utf-8
+  bytes, this could cause stringifying a stack trace to blow up when
+  it tried to stringify that argument. We now catch those (and other)
+  errors and simply put "(bad utf-8)" or "?" in the stringified
+  argument list. Reported by Alex Vandiver.
+
+
+1.18  Mar 31, 2008
+
+- Fix a test failure on Win32. No changes to the non-test code.
+
+
+1.17  Mar 30, 2008
+
+- Added a max_arg_length parameter, which if set causes
+  Devel::StackTrace to truncate long strings when printing out a
+  frame. RT #33519. Patch by Ian Burrell. 
+
+
+1.16  Feb 2, 2008
+
+- A test fix for bleadperl. The value of wantarray from caller() needs
+  to be treated as a boolean, as opposed to expecting 0 (vs
+  undef). RT #32583. Patch by Jerry Hedden.
+
+
+1.15  Apr 28, 2007
+
+- Changed how objects are created in order to greatly speed up the
+  constructor. Instead of processing all the stack trace data when the
+  object is first created, this is delayed until it is needed. This
+  was done in order to help speed up Exception::Class. There are cases
+  where code may be throwing many exceptions but never examining the
+  stack traces.
+
+  Here is a representative benchmark of object construction for the
+  old code versus the new code:
+
+          Rate  old  new
+    old 1764/s   -- -76%
+    new 7353/s 317%   --
+
+
+1.14  Mar 16, 2007
+
+- Added a few micro-optimizations from Ruslan Zakirov, who is hoping
+  this will ultimately help speed up RT.
+
+
+1.13  Apr 1, 2006
+
+- Add another fix for filename handling in the tests. Tests were
+  giving false failures on Win32 because the tests needed to use
+  File::Spec->canonpath(), just like Devel::StackTrace does
+  internally.
+
+
+1.12  Sep 30, 2005
+
+- Newer versions of Perl use Unix-style filenames when reporting the
+  filename in caller(), which breaks Exception::Class tests on other
+  platforms, and is just kind of funky.  This module now calls
+  File::Spec->canonpath() to clean up the filename in each frame.
+  Reported by Garret Goebel.
+
+
+1.11  Apr 12, 2004
+
+- No code changes, just switching to including a Makefile.PL that uses
+  ExtUtils::MakeMaker instead of one that sneakily uses Module::Build.
+  Requested by Perrin Harkins.
+
+
+1.10  Mar 10, 2004
+
+- Silence a warning from the test code if Exception::Class isn't
+  installed.  Reported by Stefano Ruberti.
+
+- Localize $@ to avoid overwriting a previously set $@ while creating
+  a Devel::StackTrace object.  This caused a test failure in the
+  Exception::Class tests when run with Perl 5.6.1, but not with 5.8.3.
+  I don't really know how to test for it outside of Exception::Class.
+  Reported by Jesse Erlbaum.
+
+
+1.09  Feb 26, 2004
+
+- The overload workaround blows up if a DBI handle is anywhere in the
+  stack, because of a bad interaction between overload::Overloaded and
+  DBI's custom dispatching.  This release works around that.
+
+
+1.08  Feb 23, 2004
+
+- Some tests failed on Win32 because they were hardcoded to expect a
+  file name with forward slashes.  Reported by Steve Hay.
+
+
+1.07  Feb 21, 2004
+
+- This release includes a change to the overload handling that is
+  necessary for cooperation with Exception::Class.
+
+
+1.06  Feb 21, 2004
+
+- Devel::StackTrace now uses overload::StrVal() to get the underlying
+  string value of an overloaded object when creating a stack frame for
+  display.  This can be turned off by setting respect_overload to a
+  true value.  Suggested by Matt Sisk.
+
+
+1.05  Feb 17, 2004
+
+- Devel::StackTrace incorrectly reported that arguments were being
+  passed to eval blocks (which isn't possible).  Reported by Mark
+  Dedlow.
+
+
+1.04  Sep 25, 2003
+
+- The special handling of Exception::Class::Base objects was broken.
+  This was exposed by the fact that Exception::Class 1.15 now uses
+  Devel::StackTrace in a slightly different way than it did
+  previously.
+
+
+1.03  Jan 22, 2003
+
+- Special handling of Exception::Class::Base objects when stringifying
+  references.  This avoids infinite recursion between the two classes.
+
+
+1.02  Sep 19, 2002
+
+- Forgot to add Test::More to PREREQ_PM for previous releases.
+
+
+1.01  Sep 18, 2002
+
+- Change the "no object refs" feature to be a plain old "no refs"
+  feature.  As was pointed out to me by Jean-Phillippe Bouchard, a
+  plain reference (to an array, for example), can easily hold
+  references to objects internally.  And since I'm not going to bother
+  descending through nested data structures weeding out objects, this
+  is an easier way to handle the problem.  Thanks to Jean-Phillippe
+  Bouchard for a patch for this as well.
+
+  The "no_object_refs" parameter is deprecated, and now does the same
+  thing as the "no_refs" parameter.
+
+
+1.00  Aug 23, 2002 (from Taiwan)
+
+- Add an option to not store references to objects in stack frames.
+  This can be important if you're expecting DESTROY to be called but a
+  Devel::StackTraceFrame object is still holding a reference to your
+  object(s).  Based on discussion with Tatsuhiko Miyagawa.
+
+
+0.9   Nov 24, 2001
+
+- Doc tweaks.
+
+
+0.85
+
+- doc bug fix that made it seem like args method was only available
+  under Perl 5.6.0
+
+- converted objects from pseudo-hashes to regular hashes.
+
+
+0.8
+
+- Should work under Perl 5.6.0+.
+
+- Added hints & bitmask methods for use under Perl 5.6.0.
+
+
+0.75
+
+- Added frames method (and docs for it).
+
+- Added 'use 5.005' which I should have put in there earlier.
+
+- DOCS: explanation of 'top' and 'bottom' as they refer to the stack.
+

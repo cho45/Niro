@@ -1,0 +1,72 @@
+Revision history for Perl extension Text::Hatena.
+
+0.20  Tue Feb 6 2007
+	- Rewrite whole code using Parse::RecDescent
+	- Changed whole architecture
+
+0.16  Mon Dec 25
+	- Added H3anchorNode and invalid option for H3anchor.
+	- Added Invalid option for section node.
+
+0.15  Mon Sep 4
+	- Added Text::VimColor extension to SuperPreNode.
+
+0.14  Thu Jul 6
+	- Changed ASIN.publisher to ASIN.Manufacturer
+
+0.13  Tue Jun 6
+        - Fixed problem with null line in pre node.
+	- Added movie/sound syntax to Text::Hatena::AutoLink::HTTP.
+
+0.12  Thu Apr 6
+        - changed process in Text::Hatena::AutoLink::HTTP's title process
+        - Now you don't need URI::Title and many modules.
+        - You can set the handler which treats the title (for encoding or doing something)
+
+0.11  Wed Apr 5
+	- escaped autolink in super pre.
+	- fixed bug in Hatenafotolife auto link.
+	- added converting process in URI::Title to utf-8.
+
+0.10  Thu Feb 9
+	- removed sanitizing process from HTMLFilter and AutoLink::Schemes.
+	- added ean, graph, map, google, search, amazon, rakuten schemes.
+
+0.09  Fri Jan 27
+	- added f:t:... / f:keyword:... syntax.
+	- added antenna, rss, idea, question scheme.
+
+0.08  Thu Jan 26
+	- Fixed HatenaID syntax bug. (wrong image url)
+	- removed warnings. (thanks hkrn)
+	- Amazon affiliate ID can be changed.
+
+0.07  Sat Jan 21
+	- added Text::Hatena::AutoLink. It makes many hyperlinks automatically.
+	- changed required version of HTML::Parser to 3.26. (thanks kazeburo)
+	- removed footnote syntax. Please treat '((...))' from your program.
+
+0.06  Tue Dec 2
+	- fixed nested list problem.
+	- fixed typo.
+
+0.05  Tue Nov 29
+	- added HTMLFilter and sanitizing HTML process.
+	- added texthandler callback.
+	- removed "use 5.00.." in Makefile.PL
+	- rewrited authors of Text::Hatena Syntax
+
+0.04  Thu Nov 10
+	- added syntax samples
+	- escape strings in suprepre node
+
+0.03  Wed Nov 9
+	- added taglines node, tag node, cdata node.
+	- added Text::Hatena Syntax description.
+	- fixed pre node ("|<" at line end become works). 
+
+0.02  Fri Oct 8
+	- fixed typo.
+
+0.01  Wed Aug 31 10:07:25 2005
+	- original version

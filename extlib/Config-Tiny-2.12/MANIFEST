@@ -1,0 +1,12 @@
+Changes
+lib/Config/Tiny.pm
+LICENSE
+Makefile.PL
+MANIFEST			This list of files
+README
+t/01_compile.t
+t/02_main.t
+t/98_pod.t
+t/99_pmv.t
+test.conf
+META.yml                                 Module meta-data (added by MakeMaker)

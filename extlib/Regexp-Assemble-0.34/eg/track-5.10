@@ -1,0 +1,18 @@
+#! /usr/local/bin/perl5.9.5
+
+use strict;
+use warnings;
+
+use lib 'blib/lib';
+use Regexp::Assemble;
+
+my $r = Regexp::Assemble->new->track(1)->add(qw(foo? bar{2} [Rr]at));
+
+for my $w (qw(this food is rather barren)) {
+	if ($w =~ /$r/) {
+		print "$w matched by ", $r->source($^R), $/;
+	}
+	else {
+		print "$w no match\n";
+	}
+}

@@ -1,0 +1,117 @@
+=head1 NAME
+
+Text::MicroMason::Docs::Related - A Brief Survey of Templating Modules 
+
+=head1 RELATED MODULES
+
+Text::MicroMason is just one of dozens (or hundreds) of templating 
+distributions on CPAN. 
+
+This document mentions a few related modules and includes a brief discussion of some similarities and differences among them.
+
+
+=head1 OTHER COMPARISONS
+
+For a more authoritative discussion, see Perrin Harkins' classic article at L<http://www.perl.com/lpt/a/2001/08/21/templating.html>.
+
+For reference, here's a slightly mangled version of the comparison matrix 
+at the conclusion of that article:
+
+		 Scope	 	Style	 	Parsing		Language
+  HTML::Mason	 Framework	Callback	Compiled	Perl
+  HTML::Embperl	 Framework	Callback	Compiled	Perl
+  Apache::ASP	 Framework	Callback	Compiled	Perl and XSL
+  AxKit		 Framework	Pipeline	Compiled or 	Perl, XSL and
+						 Cached Parse    Mini-Languages
+  SSI		 Templates	Callback	Repeated Parse	Mini-Language
+  Template Tlkit Templates	Pipeline	Compiled	Mini-Language
+  HTML::Template Templates	Pipeline	Cached Parse	Mini-Language
+  Text::Template Templates	Pipeline	Compiled	Perl
+
+
+
+=head1 POINTS OF COMPARISON
+
+There are serveral ways we can differentiate between templating systems:
+
+=over 4
+
+=item Perl Syntax vs. Little Languages
+
+Some templating systems use Perl syntax for both interpolated expressions
+and flow control, including L<Text::Template|Text::Template>,
+L<Template::Perl|Template::Perl>, and L<Text::ScriptTemplate|Text::ScriptTemplate>.
+
+Others use "little languages", including L<Template::Toolkit|Template::Toolkit> and L<HTML::Template|HTML::Template>.
+
+=item Just Templating vs. Web Application Framework
+
+Some templating systems just provide functions to fill in templates, like L<Text::Template|Text::Template>.
+
+Others are part of full-blown web application frameworks like
+L<Apache::ASP|Apache::ASP>, ePerl, L<HTML::Embperl|HTML::Embperl>,
+and L<HTML::Mason|HTML::Mason>.
+
+=item Modular vs Monolithic
+
+Some templating systems are not particularly configurable or extensible. 
+
+Others support various kinds of extensions, including L<Template::Toolkit|Template::Toolkit>, L<HTML::Mason|HTML::Mason> and L<Text::MicroMason|Text::MicroMason>.
+
+=item Interpreted vs. Compiled 
+
+Some templating systems repeatedly parse the template from scratch every time it is used.
+
+Others parse the template into an intermediate data structure and then iterate over that each time the template is used.
+
+Others convert the template into equivalent Perl source code which can be compiled into a directly-executable subroutine and used repeatedly, including L<HTML::Mason|HTML::Mason> and L<Text::MicroMason|Text::MicroMason>.
+
+=back
+
+
+=head1 EMULATED MODULES
+
+=head2 Apache::ASP
+
+For an emulation for L<Apache::ASP|Apache::ASP>, 
+see L<Text::MicroMason::ServerPages>.
+
+=head2 Embperl
+
+For an emulation for L<Embperl|Embperl>, 
+see L<Text::MicroMason::Embperl>.
+
+=head2 HTML::Template
+
+For an emulation for L<HTML::Template|HTML::Template>, 
+see L<Text::MicroMason::HTMLTemplate>.
+
+See also L<HTML::Template::Compiled>.
+
+=head2 HTML::Mason
+
+For an emulation for L<HTML::Mason|HTML::Mason>, 
+see L<Text::MicroMason::HTMLMason>.
+
+(If you've already got HTML::Mason installed, configured, and loaded
+into your process, you're probably better off using it rather than
+this package. HTML::Mason's C<$interp-E<gt>make_component()> method
+allows you to parse a text string without saving it to disk first.)
+
+=head2 PLP
+
+For an emulation for L<PLP|PLP>, 
+see L<Text::MicroMason::PLP>.
+
+=head2 Text::Template
+
+For an emulation for L<Text::Template|Text::Template>, 
+see L<Text::MicroMason::TextTemplate>.
+
+
+=head1 SEE ALSO
+
+For distribution, installation, support, copyright and license 
+information, see L<Text::MicroMason::Docs::ReadMe>.
+
+=cut

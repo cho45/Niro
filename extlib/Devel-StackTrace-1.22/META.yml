@@ -1,0 +1,22 @@
+---
+name: Devel-StackTrace
+version: 1.22
+author:
+  - 'Dave Rolsky, <autarch@urth.org>'
+abstract: Stack trace and stack trace frame objects
+license: perl
+resources:
+  license: http://dev.perl.org/licenses/
+requires:
+  File::Spec: 0
+  Scalar::Util: 0
+  Test::More: 0.46
+  perl: 5.006
+provides:
+  Devel::StackTrace:
+    file: lib/Devel/StackTrace.pm
+    version: 1.22
+generated_by: Module::Build version 0.280801
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2

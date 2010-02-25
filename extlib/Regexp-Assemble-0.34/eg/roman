@@ -1,0 +1,24 @@
+#! /usr/local/bin/perl -w
+#
+# roman - generate a regular expression that matches the roman numerals
+# from 1 to 20.
+#
+# you can over-ride the upper bound (20) by specifying the value
+# on the command line. You can also specify an indent value to
+# pretty-print the resulting regexp.
+#
+# Copyright (C) David Landgren 2005
+
+use strict;
+use Regexp::Assemble;
+
+my $max    = shift || 20;
+my $indent = shift || 0;
+
+eval "use Math::Roman 'roman'";
+$@ and die "You must install Math::Roman to run this example\n";
+
+my $r = Regexp::Assemble->new;
+$r->add(roman($_)) for 1..$max;
+
+print $r->as_string( indent => $indent ), "\n";

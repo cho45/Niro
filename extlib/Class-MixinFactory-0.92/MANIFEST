@@ -1,0 +1,21 @@
+CHANGES
+Makefile.PL
+MANIFEST
+MANIFEST.SKIP
+MixinFactory.pm
+MixinFactory/Changes.pod
+MixinFactory/Factory.pm
+MixinFactory/HasAFactory.pm
+MixinFactory/InsideOutAttr.pm
+MixinFactory/NEXT.pm
+MixinFactory/ReadMe.pod
+README
+t/factory_class.t
+t/factory_method.t
+t/factory_object.t
+t/isa_subclass.t
+t/prefix_class.t
+t/prefix_method.t
+t/prefix_object.t
+t/version.t
+META.yml                                 Module meta-data (added by MakeMaker)

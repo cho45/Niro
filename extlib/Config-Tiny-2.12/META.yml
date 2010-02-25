@@ -1,0 +1,14 @@
+--- #YAML:1.0
+name:                Config-Tiny
+version:             2.12
+abstract:            Read/Write .ini style files with as little code as possible
+license:             perl
+generated_by:        ExtUtils::MakeMaker version 6.32
+distribution_type:   module
+requires:     
+    Test::More:                    0.47
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.2.html
+    version: 1.2
+author:
+    - Adam Kennedy <adamk@cpan.org>

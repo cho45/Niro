@@ -1,0 +1,13 @@
+Changes
+lib/Text/Hatena.pm
+lib/Text/Hatena/AutoLink.pm
+Makefile.PL
+MANIFEST
+README
+t/00_compile.t
+t/01_module.t
+t/02_module_extend.t
+t/10_autolink.t
+t/11_autolink_extend.t
+t/lib/MyParser.pm
+META.yml                                 Module meta-data (added by MakeMaker)

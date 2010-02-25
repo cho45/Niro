@@ -30,8 +30,8 @@ sub html {
 
 sub json ($) {
 	my ($r, $obj) = @_;
-	JSON::XS->use or die;
-	my $json = encode_json($obj);
+	JSON->use or die;
+	my $json = JSON->new->utf8->encode($obj);
 
 	$r->res->header("Content-Type" => "application/json");
 	$r->res->body($json);

@@ -5,6 +5,7 @@ Options -MultiViews
 </FilesMatch>
 
 AddHandler cgi-script .cgi
+#AddHandler cgi-script-debug .cgi
 
 RewriteEngine On
 RewriteBase /niro/

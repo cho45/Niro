@@ -118,7 +118,7 @@ sub login {
 		(-f $session) && ($session->remove);
 		0;
 	} else {
-		my $rk = $r->req->cookies->{rk};
+		my $rk = $r->req->cookies->{rk} || "";
 		my $session = file("/tmp/session_$rk");
 		(-f $session) && ($session->slurp > (scalar time - (60 * 60 * 24 * 30)));
 	}
@@ -126,7 +126,7 @@ sub login {
 
 sub rks {
 	my ($r) = @_;
-	Digest::SHA1::sha1_hex($r->req->cookies->{rk});
+	Digest::SHA1::sha1_hex($r->req->cookies->{rk} || "");
 }
 
 sub uri_for {

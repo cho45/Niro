@@ -1,0 +1,714 @@
+<!doctype html><head><title>Error: Oops at eg/dot-psgi/error.psgi line 2.
+</title><style type="text/css">a.toggle { color: #444 }
+body { margin: 0; padding: 0; background: #fff; color: #000; }
+h1 { margin: 0 0 .5em; padding: .25em .5em .1em 1.5em; border-bottom: thick solid #002; background: #444; color: #eee; font-size: x-large; }
+p { margin: .5em 1em; }
+li { font-size: small; }
+pre.context { border: 1px solid #aaa; padding: 0.2em 0; background: #fff; color: #444; font-size: medium; }
+pre .match { color: #000;background-color: #f99; font-weight: bold }
+pre.vardump { margin:0 }
+pre code strong { color: #000; background: #f88; }
+.lexicals { display: none; margin-left: 2em }
+</style><script language="JavaScript" type="text/javascript">
+function showLexicals(id) {
+ var css = document.getElementById(id).style;
+ css.display = css.display == 'block' ? 'none' : 'block'
+}
+</script>
+</head>
+<body>
+<h1>Error trace</h1><p>Oops at eg/dot-psgi/error.psgi line 2.
+</p><ol>
+<li>in Plack::Middleware::StackTrace::__ANON__ at eg/dot-psgi/error.psgi line 2<pre class="context"><code>    1: sub { my $x = &quot;bar&quot;; my $y = [1,2,3]; my $z = { x =&gt; 1 }; my @y = qw(foo bar); my %z = (x =&gt; 1, y =&gt; 2);
+<strong class="match">    2:       do { die &quot;Oops&quot; }; return [ 200, [ &#39;Content-Type&#39; =&gt; &#39;text/html&#39; ], [ &quot;Hello&quot; ] ] };
+</strong></code></pre><p><a class="toggle" href="javascript:showLexicals('lexicals-1')">Show lexical variables</a></p><pre class="lexicals" id="lexicals-1">my $x = &quot;bar&quot;;
+my $y = [1, 2, 3];
+my $z = { &quot;x&quot; =&gt; 1 };
+my %z = ( &quot;x&quot; =&gt; 1, &quot;y&quot; =&gt; 2 );
+my @y = (&quot;foo&quot;, &quot;bar&quot;);
+</pre></body></html></li><li>in Plack::Util::__ANON__ at lib/Plack/Middleware/StackTrace.pm line 29<pre class="context"><code>   26: 
+   27:     my $res = do {
+   28:         local $@;
+<strong class="match">   29:         eval { $self-&gt;app-&gt;($env) };
+</strong>   30:     };
+   31: 
+   32:     if (!$res &amp;&amp; $trace) {
+</code></pre><p><a class="toggle" href="javascript:showLexicals('lexicals-2')">Show lexical variables</a></p><pre class="lexicals" id="lexicals-2">my $env = {
+  HTTP_ACCEPT         =&gt; &quot;*/*&quot;,
+  HTTP_HOST           =&gt; &quot;localhost:8080&quot;,
+  HTTP_USER_AGENT     =&gt; &quot;curl/7.16.3 (powerpc-apple-darwin9.0) libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3&quot;,
+  PATH_INFO           =&gt; &quot;/&quot;,
+  QUERY_STRING        =&gt; &quot;&quot;,
+  REMOTE_ADDR         =&gt; &quot;127.0.0.1&quot;,
+  REQUEST_METHOD      =&gt; &quot;GET&quot;,
+  REQUEST_URI         =&gt; &quot;/&quot;,
+  SCRIPT_NAME         =&gt; &quot;&quot;,
+  SERVER_NAME         =&gt; 0,
+  SERVER_PORT         =&gt; 8080,
+  SERVER_PROTOCOL     =&gt; &quot;HTTP/1.1&quot;,
+  &quot;psgi.errors&quot;       =&gt; *main::STDERR,
+  &quot;psgi.input&quot;        =&gt; \*Plack::Server::Standalone::$input,
+  &quot;psgi.multiprocess&quot; =&gt; &quot;&quot;,
+  &quot;psgi.multithread&quot;  =&gt; &quot;&quot;,
+  &quot;psgi.run_once&quot;     =&gt; &quot;&quot;,
+  &quot;psgi.url_scheme&quot;   =&gt; &quot;http&quot;,
+  &quot;psgi.version&quot;      =&gt; [1, 0],
+};
+my $self = bless({ app =&gt; sub { &quot;???&quot; } }, &quot;Plack::Middleware::StackTrace&quot;);
+my $trace = do {
+  require Symbol;
+  my $a = bless({
+    frames  =&gt; [
+                 bless({
+                   args             =&gt; [&quot;Devel::StackTrace::WithLexicals&quot;],
+                   bitmask          =&gt; &quot;UUUUUUUUUUUU\25&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;lib/Plack/Middleware/StackTrace.pm&quot;,
+                   hasargs          =&gt; 1,
+                   hints            =&gt; 2,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; {
+                                         &quot;\$env&quot;   =&gt; \{
+                                                        HTTP_ACCEPT         =&gt; &quot;*/*&quot;,
+                                                        HTTP_HOST           =&gt; &quot;localhost:8080&quot;,
+                                                        HTTP_USER_AGENT     =&gt; &quot;curl/7.16.3 (powerpc-apple-darwin9.0) libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3&quot;,
+                                                        PATH_INFO           =&gt; &quot;/&quot;,
+                                                        QUERY_STRING        =&gt; &quot;&quot;,
+                                                        REMOTE_ADDR         =&gt; &quot;127.0.0.1&quot;,
+                                                        REQUEST_METHOD      =&gt; &quot;GET&quot;,
+                                                        REQUEST_URI         =&gt; &quot;/&quot;,
+                                                        SCRIPT_NAME         =&gt; &quot;&quot;,
+                                                        SERVER_NAME         =&gt; 0,
+                                                        SERVER_PORT         =&gt; 8080,
+                                                        SERVER_PROTOCOL     =&gt; &quot;HTTP/1.1&quot;,
+                                                        &quot;psgi.errors&quot;       =&gt; *main::STDERR,
+                                                        &quot;psgi.input&quot;        =&gt; \*Plack::Server::Standalone::$input,
+                                                        &quot;psgi.multiprocess&quot; =&gt; &quot;&quot;,
+                                                        &quot;psgi.multithread&quot;  =&gt; &quot;&quot;,
+                                                        &quot;psgi.run_once&quot;     =&gt; &quot;&quot;,
+                                                        &quot;psgi.url_scheme&quot;   =&gt; &quot;http&quot;,
+                                                        &quot;psgi.version&quot;      =&gt; [1, 0],
+                                                      },
+                                         &quot;\$self&quot;  =&gt; \bless({ app =&gt; sub { &quot;???&quot; } }, &quot;Plack::Middleware::StackTrace&quot;),
+                                         &quot;\$trace&quot; =&gt; \do{my $fix},
+                                       },
+                   line             =&gt; 23,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;Plack::Middleware::StackTrace&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;Devel::StackTrace::new&quot;,
+                   &quot;wantarray&quot;      =&gt; 0,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+                 bless({
+                   args             =&gt; [&quot;Oops at eg/dot-psgi/error.psgi line 2.\n&quot;],
+                   bitmask          =&gt; &quot;\0\0\0\0\0\0\0\0\0\0\0\0&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;eg/dot-psgi/error.psgi&quot;,
+                   hasargs          =&gt; 1,
+                   hints            =&gt; 0,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; {
+                                         &quot;\$x&quot; =&gt; \&quot;bar&quot;,
+                                         &quot;\$y&quot; =&gt; \[1, 2, 3],
+                                         &quot;\$z&quot; =&gt; \{ &quot;x&quot; =&gt; 1 },
+                                         &quot;%z&quot;  =&gt; { &quot;x&quot; =&gt; 1, &quot;y&quot; =&gt; 2 },
+                                         &quot;\@y&quot; =&gt; [&quot;foo&quot;, &quot;bar&quot;],
+                                       },
+                   line             =&gt; 2,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;Plack::Util&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;Plack::Middleware::StackTrace::__ANON__&quot;,
+                   &quot;wantarray&quot;      =&gt; 0,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+                 bless({
+                   args             =&gt; [&#39;fix&#39;],
+                   bitmask          =&gt; &quot;UUUUUUUUUUUU\25&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;lib/Plack/Middleware/StackTrace.pm&quot;,
+                   hasargs          =&gt; 1,
+                   hints            =&gt; 2,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; { &quot;\$env&quot; =&gt; &#39;fix&#39;, &quot;\$self&quot; =&gt; &#39;fix&#39;, &quot;\$trace&quot; =&gt; &#39;fix&#39; },
+                   line             =&gt; 29,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;Plack::Middleware::StackTrace&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;Plack::Util::__ANON__&quot;,
+                   &quot;wantarray&quot;      =&gt; 0,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+                 bless({
+                   args             =&gt; [],
+                   bitmask          =&gt; &quot;UUUUUUUUUUUU\25&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;lib/Plack/Middleware/StackTrace.pm&quot;,
+                   hasargs          =&gt; 0,
+                   hints            =&gt; 2,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; undef,
+                   line             =&gt; 29,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;Plack::Middleware::StackTrace&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;(eval)&quot;,
+                   &quot;wantarray&quot;      =&gt; 0,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+                 bless({
+                   args             =&gt; [&#39;fix&#39;, &#39;fix&#39;],
+                   bitmask          =&gt; &quot;UUUUUUUUUUUU\25&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;lib/Plack/Middleware.pm&quot;,
+                   hasargs          =&gt; 1,
+                   hints            =&gt; 2,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; { &quot;\$self&quot; =&gt; \do{my $fix} },
+                   line             =&gt; 26,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;Plack::Middleware&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;Plack::Middleware::StackTrace::call&quot;,
+                   &quot;wantarray&quot;      =&gt; 0,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+                 bless({
+                   args             =&gt; [&#39;fix&#39;],
+                   bitmask          =&gt; &quot;UUUUUUUUUUUU\25&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;lib/Plack/Middleware/AccessLog.pm&quot;,
+                   hasargs          =&gt; 1,
+                   hints            =&gt; 2,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; {
+                                         &quot;\$env&quot;    =&gt; \do{my $fix},
+                                         &quot;\$self&quot;   =&gt; \bless({ app =&gt; sub { &quot;???&quot; }, logger =&gt; sub { &quot;???&quot; } }, &quot;Plack::Middleware::AccessLog&quot;),
+                                         &quot;%formats&quot; =&gt; {},
+                                       },
+                   line             =&gt; 21,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;Plack::Middleware::AccessLog&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;Plack::Middleware::__ANON__&quot;,
+                   &quot;wantarray&quot;      =&gt; 0,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+                 bless({
+                   args             =&gt; [&#39;fix&#39;, &#39;fix&#39;],
+                   bitmask          =&gt; &quot;UUUUUUUUUUUU\25&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;lib/Plack/Middleware.pm&quot;,
+                   hasargs          =&gt; 1,
+                   hints            =&gt; 2,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; { &quot;\$self&quot; =&gt; \do{my $fix} },
+                   line             =&gt; 26,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;Plack::Middleware&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;Plack::Middleware::AccessLog::call&quot;,
+                   &quot;wantarray&quot;      =&gt; 0,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+                 bless({
+                   args             =&gt; [&#39;fix&#39;],
+                   bitmask          =&gt; &quot;UUUUUUUUUUUU\25&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;lib/Plack/Middleware/ContentLength.pm&quot;,
+                   hasargs          =&gt; 1,
+                   hints            =&gt; 2,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; {
+                                         &quot;\$self&quot; =&gt; \bless({ app =&gt; sub { &quot;???&quot; } }, &quot;Plack::Middleware::ContentLength&quot;),
+                                       },
+                   line             =&gt; 10,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;Plack::Middleware::ContentLength&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;Plack::Middleware::__ANON__&quot;,
+                   &quot;wantarray&quot;      =&gt; 0,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+                 bless({
+                   args             =&gt; [&#39;fix&#39;, &#39;fix&#39;],
+                   bitmask          =&gt; &quot;UUUUUUUUUUUU\25&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;lib/Plack/Middleware.pm&quot;,
+                   hasargs          =&gt; 1,
+                   hints            =&gt; 2,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; { &quot;\$self&quot; =&gt; \do{my $fix} },
+                   line             =&gt; 26,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;Plack::Middleware&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;Plack::Middleware::ContentLength::call&quot;,
+                   &quot;wantarray&quot;      =&gt; 0,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+                 bless({
+                   args             =&gt; [&#39;fix&#39;],
+                   bitmask          =&gt; &quot;\0\0\0\0\0\0\0\0\0\0\0\0&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;lib/Plack/Util.pm&quot;,
+                   hasargs          =&gt; 1,
+                   hints            =&gt; 2,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; { &quot;\$app&quot; =&gt; \sub { &quot;???&quot; }, &quot;\$env&quot; =&gt; \do{my $fix} },
+                   line             =&gt; 107,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;Plack::Util&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;Plack::Middleware::__ANON__&quot;,
+                   &quot;wantarray&quot;      =&gt; 0,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+                 bless({
+                   args             =&gt; [],
+                   bitmask          =&gt; &quot;\0\0\0\0\0\0\0\0\0\0\0\0&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;lib/Plack/Util.pm&quot;,
+                   hasargs          =&gt; 0,
+                   hints            =&gt; 2,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; undef,
+                   line             =&gt; 107,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;Plack::Util&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;(eval)&quot;,
+                   &quot;wantarray&quot;      =&gt; 0,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+                 bless({
+                   args             =&gt; [&#39;fix&#39;, &#39;fix&#39;],
+                   bitmask          =&gt; &quot;UUUUUUUUUUUU\25&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;lib/Plack/Server/Standalone.pm&quot;,
+                   hasargs          =&gt; 1,
+                   hints            =&gt; 2,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; {
+                                         &quot;\$app&quot;           =&gt; \do{my $fix},
+                                         &quot;\$buf&quot;           =&gt; \&quot;&quot;,
+                                         &quot;\$conn&quot;          =&gt; \bless(Symbol::gensym(), &quot;IO::Socket::INET&quot;),
+                                         &quot;\$env&quot;           =&gt; \do{my $fix},
+                                         &quot;\$input&quot;         =&gt; \do{my $fix},
+                                         &quot;\$is_keepalive&quot;  =&gt; \1,
+                                         &quot;\$reqlen&quot;        =&gt; \145,
+                                         &quot;\$res&quot;           =&gt; \[400, [&quot;Content-Type&quot;, &quot;text/plain&quot;], [&quot;Bad Request&quot;]],
+                                         &quot;\$rlen&quot;          =&gt; \145,
+                                         &quot;\$self&quot;          =&gt; \bless({
+                                                                host =&gt; 0,
+                                                                keepalive_timeout =&gt; 2,
+                                                                listen_sock =&gt; bless(Symbol::gensym(), &quot;IO::Socket::INET&quot;),
+                                                                max_keepalive_reqs =&gt; 100,
+                                                                port =&gt; 8080,
+                                                                timeout =&gt; 300,
+                                                              }, &quot;Plack::Server::Standalone&quot;),
+                                         &quot;\$use_keepalive&quot; =&gt; \undef,
+                                       },
+                   line             =&gt; 153,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;Plack::Server::Standalone&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;Plack::Util::run_app&quot;,
+                   &quot;wantarray&quot;      =&gt; 0,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+                 bless({
+                   args             =&gt; [&#39;fix&#39;, &#39;fix&#39;, &#39;fix&#39;, &#39;fix&#39;, 1, 1],
+                   bitmask          =&gt; &quot;UUUUUUUUUUUU\25&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;lib/Plack/Server/Standalone.pm&quot;,
+                   hasargs          =&gt; 1,
+                   hints            =&gt; 2,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; {
+                                         &quot;\$app&quot; =&gt; \do{my $fix},
+                                         &quot;\$conn&quot; =&gt; \do{my $fix},
+                                         &quot;\$env&quot; =&gt; \do{my $fix},
+                                         &quot;\$max_reqs_per_child&quot; =&gt; \undef,
+                                         &quot;\$may_keepalive&quot; =&gt; \1,
+                                         &quot;\$proc_req_count&quot; =&gt; \5,
+                                         &quot;\$req_count&quot; =&gt; \1,
+                                         &quot;\$self&quot; =&gt; \do{my $fix},
+                                       },
+                   line             =&gt; 111,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;Plack::Server::Standalone&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;Plack::Server::Standalone::handle_connection&quot;,
+                   &quot;wantarray&quot;      =&gt; 0,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+                 bless({
+                   args             =&gt; [&#39;fix&#39;, &#39;fix&#39;],
+                   bitmask          =&gt; &quot;UUUUUUUUUUUU\25&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;lib/Plack/Server/Standalone.pm&quot;,
+                   hasargs          =&gt; 1,
+                   hints            =&gt; 2,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; { &quot;\$app&quot; =&gt; \do{my $fix}, &quot;\$self&quot; =&gt; \do{my $fix} },
+                   line             =&gt; 62,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;Plack::Server::Standalone&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;Plack::Server::Standalone::accept_loop&quot;,
+                   &quot;wantarray&quot;      =&gt; undef,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+                 bless({
+                   args             =&gt; [&#39;fix&#39;, &#39;fix&#39;],
+                   bitmask          =&gt; &quot;\0\0\0\0\0\0\0\0\0\0\0\0&quot;,
+                   evaltext         =&gt; undef,
+                   filename         =&gt; &quot;scripts/plackup&quot;,
+                   hasargs          =&gt; 1,
+                   hints            =&gt; 2,
+                   is_require       =&gt; undef,
+                   lexicals         =&gt; {
+                                         &quot;\$app&quot;      =&gt; \&quot;eg/dot-psgi/error.psgi&quot;,
+                                         &quot;\$env&quot;      =&gt; \&quot;development&quot;,
+                                         &quot;\$handler&quot;  =&gt; \do{my $fix},
+                                         &quot;\$help&quot;     =&gt; \0,
+                                         &quot;\$server&quot;   =&gt; \do{my $fix},
+                                         &quot;\@args&quot;     =&gt; [],
+                                         &quot;\@includes&quot; =&gt; [],
+                                       },
+                   line             =&gt; 42,
+                   max_arg_length   =&gt; undef,
+                   &quot;package&quot;        =&gt; &quot;main&quot;,
+                   respect_overload =&gt; undef,
+                   subroutine       =&gt; &quot;Plack::Server::Standalone::run&quot;,
+                   &quot;wantarray&quot;      =&gt; undef,
+                 }, &quot;Devel::StackTrace::WithLexicals::Frame&quot;),
+               ],
+    &quot;index&quot; =&gt; 2,
+  }, &quot;Devel::StackTrace::WithLexicals&quot;);
+  ${$a-&gt;{frames}[0]{lexicals}{&quot;\$trace&quot;}} = $a;
+  $a-&gt;{frames}[2]{args}[0] = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;}};
+  $a-&gt;{frames}[2]{lexicals}{&quot;\$env&quot;} = $a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;};
+  $a-&gt;{frames}[2]{lexicals}{&quot;\$self&quot;} = $a-&gt;{frames}[0]{lexicals}{&quot;\$self&quot;};
+  $a-&gt;{frames}[2]{lexicals}{&quot;\$trace&quot;} = $a-&gt;{frames}[0]{lexicals}{&quot;\$trace&quot;};
+  $a-&gt;{frames}[4]{args}[0] = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$self&quot;}};
+  $a-&gt;{frames}[4]{args}[1] = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;}};
+  ${$a-&gt;{frames}[4]{lexicals}{&quot;\$self&quot;}} = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$self&quot;}};
+  $a-&gt;{frames}[5]{args}[0] = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;}};
+  ${$a-&gt;{frames}[5]{lexicals}{&quot;\$env&quot;}} = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;}};
+  $a-&gt;{frames}[6]{args}[0] = ${$a-&gt;{frames}[5]{lexicals}{&quot;\$self&quot;}};
+  $a-&gt;{frames}[6]{args}[1] = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;}};
+  ${$a-&gt;{frames}[6]{lexicals}{&quot;\$self&quot;}} = ${$a-&gt;{frames}[5]{lexicals}{&quot;\$self&quot;}};
+  $a-&gt;{frames}[7]{args}[0] = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;}};
+  $a-&gt;{frames}[8]{args}[0] = ${$a-&gt;{frames}[7]{lexicals}{&quot;\$self&quot;}};
+  $a-&gt;{frames}[8]{args}[1] = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;}};
+  ${$a-&gt;{frames}[8]{lexicals}{&quot;\$self&quot;}} = ${$a-&gt;{frames}[7]{lexicals}{&quot;\$self&quot;}};
+  $a-&gt;{frames}[9]{args}[0] = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;}};
+  ${$a-&gt;{frames}[9]{lexicals}{&quot;\$env&quot;}} = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;}};
+  $a-&gt;{frames}[11]{args}[0] = ${$a-&gt;{frames}[9]{lexicals}{&quot;\$app&quot;}};
+  $a-&gt;{frames}[11]{args}[1] = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;}};
+  ${$a-&gt;{frames}[11]{lexicals}{&quot;\$app&quot;}} = ${$a-&gt;{frames}[9]{lexicals}{&quot;\$app&quot;}};
+  *{${$a-&gt;{frames}[11]{lexicals}{&quot;\$conn&quot;}}} = {
+    io_socket_peername =&gt; pack(&quot;H*&quot;,&quot;1002c5c57f0000010000000000000000&quot;),
+    io_socket_timeout  =&gt; undef,
+  };
+  ${$a-&gt;{frames}[11]{lexicals}{&quot;\$env&quot;}} = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;}};
+  ${$a-&gt;{frames}[11]{lexicals}{&quot;\$input&quot;}} = *{${$a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;}}-&gt;{&quot;psgi.input&quot;}};
+  *{${$a-&gt;{frames}[11]{lexicals}{&quot;\$self&quot;}}-&gt;{listen_sock}} = {
+    io_socket_domain  =&gt; 2,
+    io_socket_proto   =&gt; 6,
+    io_socket_timeout =&gt; undef,
+    io_socket_type    =&gt; 1,
+  };
+  $a-&gt;{frames}[12]{args}[0] = ${$a-&gt;{frames}[11]{lexicals}{&quot;\$self&quot;}};
+  $a-&gt;{frames}[12]{args}[1] = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;}};
+  $a-&gt;{frames}[12]{args}[2] = *{${$a-&gt;{frames}[11]{lexicals}{&quot;\$conn&quot;}}};
+  $a-&gt;{frames}[12]{args}[3] = ${$a-&gt;{frames}[9]{lexicals}{&quot;\$app&quot;}};
+  ${$a-&gt;{frames}[12]{lexicals}{&quot;\$app&quot;}} = ${$a-&gt;{frames}[9]{lexicals}{&quot;\$app&quot;}};
+  ${$a-&gt;{frames}[12]{lexicals}{&quot;\$conn&quot;}} = *{${$a-&gt;{frames}[11]{lexicals}{&quot;\$conn&quot;}}};
+  ${$a-&gt;{frames}[12]{lexicals}{&quot;\$env&quot;}} = ${$a-&gt;{frames}[0]{lexicals}{&quot;\$env&quot;}};
+  ${$a-&gt;{frames}[12]{lexicals}{&quot;\$self&quot;}} = ${$a-&gt;{frames}[11]{lexicals}{&quot;\$self&quot;}};
+  $a-&gt;{frames}[13]{args}[0] = ${$a-&gt;{frames}[11]{lexicals}{&quot;\$self&quot;}};
+  $a-&gt;{frames}[13]{args}[1] = ${$a-&gt;{frames}[7]{lexicals}{&quot;\$self&quot;}}-&gt;{app};
+  ${$a-&gt;{frames}[13]{lexicals}{&quot;\$app&quot;}} = ${$a-&gt;{frames}[7]{lexicals}{&quot;\$self&quot;}}-&gt;{app};
+  ${$a-&gt;{frames}[13]{lexicals}{&quot;\$self&quot;}} = ${$a-&gt;{frames}[11]{lexicals}{&quot;\$self&quot;}};
+  $a-&gt;{frames}[14]{args}[0] = ${$a-&gt;{frames}[11]{lexicals}{&quot;\$self&quot;}};
+  $a-&gt;{frames}[14]{args}[1] = ${$a-&gt;{frames}[7]{lexicals}{&quot;\$self&quot;}}-&gt;{app};
+  ${$a-&gt;{frames}[14]{lexicals}{&quot;\$handler&quot;}} = ${$a-&gt;{frames}[7]{lexicals}{&quot;\$self&quot;}}-&gt;{app};
+  ${$a-&gt;{frames}[14]{lexicals}{&quot;\$server&quot;}} = ${$a-&gt;{frames}[11]{lexicals}{&quot;\$self&quot;}};
+  $a;
+};
+</pre></body></html></li><li>in (eval) at lib/Plack/Middleware/StackTrace.pm line 29<pre class="context"><code>   26: 
+   27:     my $res = do {
+   28:         local $@;
+<strong class="match">   29:         eval { $self-&gt;app-&gt;($env) };
+</strong>   30:     };
+   31: 
+   32:     if (!$res &amp;&amp; $trace) {
+</code></pre><p><a class="toggle" href="javascript:showLexicals('lexicals-3')">Show lexical variables</a></p><pre class="lexicals" id="lexicals-3"></pre></body></html></li><li>in Plack::Middleware::StackTrace::call at lib/Plack/Middleware.pm line 26<pre class="context"><code>   23: 
+   24: sub to_app {
+   25:     my $self = shift;
+<strong class="match">   26:     return sub { $self-&gt;call(@_) };
+</strong>   27: }
+   28: 
+   29: sub enable {
+</code></pre><p><a class="toggle" href="javascript:showLexicals('lexicals-4')">Show lexical variables</a></p><pre class="lexicals" id="lexicals-4">my $self = bless({ app =&gt; sub { &quot;???&quot; } }, &quot;Plack::Middleware::StackTrace&quot;);
+</pre></body></html></li><li>in Plack::Middleware::__ANON__ at lib/Plack/Middleware/AccessLog.pm line 21<pre class="context"><code>   18:     my $self = shift;
+   19:     my($env) = @_;
+   20: 
+<strong class="match">   21:     my $res = $self-&gt;app-&gt;($env);
+</strong>   22: 
+   23:     my $logger = $self-&gt;logger || sub { $env-&gt;{&#39;psgi.errors&#39;}-&gt;print(@_) };
+   24: 
+</code></pre><p><a class="toggle" href="javascript:showLexicals('lexicals-5')">Show lexical variables</a></p><pre class="lexicals" id="lexicals-5">my $env = {
+  HTTP_ACCEPT         =&gt; &quot;*/*&quot;,
+  HTTP_HOST           =&gt; &quot;localhost:8080&quot;,
+  HTTP_USER_AGENT     =&gt; &quot;curl/7.16.3 (powerpc-apple-darwin9.0) libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3&quot;,
+  PATH_INFO           =&gt; &quot;/&quot;,
+  QUERY_STRING        =&gt; &quot;&quot;,
+  REMOTE_ADDR         =&gt; &quot;127.0.0.1&quot;,
+  REQUEST_METHOD      =&gt; &quot;GET&quot;,
+  REQUEST_URI         =&gt; &quot;/&quot;,
+  SCRIPT_NAME         =&gt; &quot;&quot;,
+  SERVER_NAME         =&gt; 0,
+  SERVER_PORT         =&gt; 8080,
+  SERVER_PROTOCOL     =&gt; &quot;HTTP/1.1&quot;,
+  &quot;psgi.errors&quot;       =&gt; *main::STDERR,
+  &quot;psgi.input&quot;        =&gt; \*Plack::Server::Standalone::$input,
+  &quot;psgi.multiprocess&quot; =&gt; &quot;&quot;,
+  &quot;psgi.multithread&quot;  =&gt; &quot;&quot;,
+  &quot;psgi.run_once&quot;     =&gt; &quot;&quot;,
+  &quot;psgi.url_scheme&quot;   =&gt; &quot;http&quot;,
+  &quot;psgi.version&quot;      =&gt; [1, 0],
+};
+my $self = bless({ app =&gt; sub { &quot;???&quot; }, logger =&gt; sub { &quot;???&quot; } }, &quot;Plack::Middleware::AccessLog&quot;);
+my %formats = ();
+</pre></body></html></li><li>in Plack::Middleware::AccessLog::call at lib/Plack/Middleware.pm line 26<pre class="context"><code>   23: 
+   24: sub to_app {
+   25:     my $self = shift;
+<strong class="match">   26:     return sub { $self-&gt;call(@_) };
+</strong>   27: }
+   28: 
+   29: sub enable {
+</code></pre><p><a class="toggle" href="javascript:showLexicals('lexicals-6')">Show lexical variables</a></p><pre class="lexicals" id="lexicals-6">my $self = bless({ app =&gt; sub { &quot;???&quot; }, logger =&gt; sub { &quot;???&quot; } }, &quot;Plack::Middleware::AccessLog&quot;);
+</pre></body></html></li><li>in Plack::Middleware::__ANON__ at lib/Plack/Middleware/ContentLength.pm line 10<pre class="context"><code>    7: 
+    8: sub call {
+    9:     my $self = shift;
+<strong class="match">   10:     my $res  = $self-&gt;app-&gt;(@_);
+</strong>   11: 
+   12:     my $h = Plack::Util::headers($res-&gt;[1]);
+   13:     if (!Plack::Util::status_with_no_entity_body($res-&gt;[0]) &amp;&amp;
+</code></pre><p><a class="toggle" href="javascript:showLexicals('lexicals-7')">Show lexical variables</a></p><pre class="lexicals" id="lexicals-7">my $self = bless({ app =&gt; sub { &quot;???&quot; } }, &quot;Plack::Middleware::ContentLength&quot;);
+</pre></body></html></li><li>in Plack::Middleware::ContentLength::call at lib/Plack/Middleware.pm line 26<pre class="context"><code>   23: 
+   24: sub to_app {
+   25:     my $self = shift;
+<strong class="match">   26:     return sub { $self-&gt;call(@_) };
+</strong>   27: }
+   28: 
+   29: sub enable {
+</code></pre><p><a class="toggle" href="javascript:showLexicals('lexicals-8')">Show lexical variables</a></p><pre class="lexicals" id="lexicals-8">my $self = bless({ app =&gt; sub { &quot;???&quot; } }, &quot;Plack::Middleware::ContentLength&quot;);
+</pre></body></html></li><li>in Plack::Middleware::__ANON__ at lib/Plack/Util.pm line 107<pre class="context"><code>  104: sub run_app($$) {
+  105:     my($app, $env) = @_;
+  106: 
+<strong class="match">  107:     local $@; my $res = eval { $app-&gt;($env) };
+</strong>  108:     if ($@) {
+  109:         my $body = &quot;Internal Server Error&quot;;
+  110:         $env-&gt;{&#39;psgi.errors&#39;}-&gt;print($@);
+</code></pre><p><a class="toggle" href="javascript:showLexicals('lexicals-9')">Show lexical variables</a></p><pre class="lexicals" id="lexicals-9">my $app = sub { &quot;???&quot; };
+my $env = {
+  HTTP_ACCEPT         =&gt; &quot;*/*&quot;,
+  HTTP_HOST           =&gt; &quot;localhost:8080&quot;,
+  HTTP_USER_AGENT     =&gt; &quot;curl/7.16.3 (powerpc-apple-darwin9.0) libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3&quot;,
+  PATH_INFO           =&gt; &quot;/&quot;,
+  QUERY_STRING        =&gt; &quot;&quot;,
+  REMOTE_ADDR         =&gt; &quot;127.0.0.1&quot;,
+  REQUEST_METHOD      =&gt; &quot;GET&quot;,
+  REQUEST_URI         =&gt; &quot;/&quot;,
+  SCRIPT_NAME         =&gt; &quot;&quot;,
+  SERVER_NAME         =&gt; 0,
+  SERVER_PORT         =&gt; 8080,
+  SERVER_PROTOCOL     =&gt; &quot;HTTP/1.1&quot;,
+  &quot;psgi.errors&quot;       =&gt; *main::STDERR,
+  &quot;psgi.input&quot;        =&gt; \*Plack::Server::Standalone::$input,
+  &quot;psgi.multiprocess&quot; =&gt; &quot;&quot;,
+  &quot;psgi.multithread&quot;  =&gt; &quot;&quot;,
+  &quot;psgi.run_once&quot;     =&gt; &quot;&quot;,
+  &quot;psgi.url_scheme&quot;   =&gt; &quot;http&quot;,
+  &quot;psgi.version&quot;      =&gt; [1, 0],
+};
+</pre></body></html></li><li>in (eval) at lib/Plack/Util.pm line 107<pre class="context"><code>  104: sub run_app($$) {
+  105:     my($app, $env) = @_;
+  106: 
+<strong class="match">  107:     local $@; my $res = eval { $app-&gt;($env) };
+</strong>  108:     if ($@) {
+  109:         my $body = &quot;Internal Server Error&quot;;
+  110:         $env-&gt;{&#39;psgi.errors&#39;}-&gt;print($@);
+</code></pre><p><a class="toggle" href="javascript:showLexicals('lexicals-10')">Show lexical variables</a></p><pre class="lexicals" id="lexicals-10"></pre></body></html></li><li>in Plack::Util::run_app at lib/Plack/Server/Standalone.pm line 153<pre class="context"><code>  150: 
+  151:             open my $input, &quot;&lt;&quot;, \$buf;
+  152:             $env-&gt;{&#39;psgi.input&#39;} = $input;
+<strong class="match">  153:             $res = Plack::Util::run_app $app, $env;
+</strong>  154:             last;
+  155:         }
+  156:         if ($reqlen == -2) {
+</code></pre><p><a class="toggle" href="javascript:showLexicals('lexicals-11')">Show lexical variables</a></p><pre class="lexicals" id="lexicals-11">my $app = sub { &quot;???&quot; };
+my $buf = &quot;&quot;;
+my $conn = do {
+  require Symbol;
+  my $a = bless(Symbol::gensym(), &quot;IO::Socket::INET&quot;);
+  *{$a} = {
+    io_socket_peername =&gt; pack(&quot;H*&quot;,&quot;1002c5c57f0000010000000000000000&quot;),
+    io_socket_timeout  =&gt; undef,
+  };
+  $a;
+};
+my $env = {
+  HTTP_ACCEPT         =&gt; &quot;*/*&quot;,
+  HTTP_HOST           =&gt; &quot;localhost:8080&quot;,
+  HTTP_USER_AGENT     =&gt; &quot;curl/7.16.3 (powerpc-apple-darwin9.0) libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3&quot;,
+  PATH_INFO           =&gt; &quot;/&quot;,
+  QUERY_STRING        =&gt; &quot;&quot;,
+  REMOTE_ADDR         =&gt; &quot;127.0.0.1&quot;,
+  REQUEST_METHOD      =&gt; &quot;GET&quot;,
+  REQUEST_URI         =&gt; &quot;/&quot;,
+  SCRIPT_NAME         =&gt; &quot;&quot;,
+  SERVER_NAME         =&gt; 0,
+  SERVER_PORT         =&gt; 8080,
+  SERVER_PROTOCOL     =&gt; &quot;HTTP/1.1&quot;,
+  &quot;psgi.errors&quot;       =&gt; *main::STDERR,
+  &quot;psgi.input&quot;        =&gt; \*Plack::Server::Standalone::$input,
+  &quot;psgi.multiprocess&quot; =&gt; &quot;&quot;,
+  &quot;psgi.multithread&quot;  =&gt; &quot;&quot;,
+  &quot;psgi.run_once&quot;     =&gt; &quot;&quot;,
+  &quot;psgi.url_scheme&quot;   =&gt; &quot;http&quot;,
+  &quot;psgi.version&quot;      =&gt; [1, 0],
+};
+my $input = \*Plack::Server::Standalone::$input;
+my $is_keepalive = 1;
+my $reqlen = 145;
+my $res = [400, [&quot;Content-Type&quot;, &quot;text/plain&quot;], [&quot;Bad Request&quot;]];
+my $rlen = 145;
+my $self = do {
+  require Symbol;
+  my $a = bless({
+    host =&gt; 0,
+    keepalive_timeout =&gt; 2,
+    listen_sock =&gt; bless(Symbol::gensym(), &quot;IO::Socket::INET&quot;),
+    max_keepalive_reqs =&gt; 100,
+    port =&gt; 8080,
+    timeout =&gt; 300,
+  }, &quot;Plack::Server::Standalone&quot;);
+  *{$a-&gt;{listen_sock}} = {
+    io_socket_domain  =&gt; 2,
+    io_socket_proto   =&gt; 6,
+    io_socket_timeout =&gt; undef,
+    io_socket_type    =&gt; 1,
+  };
+  $a;
+};
+my $use_keepalive = undef;
+</pre></body></html></li><li>in Plack::Server::Standalone::handle_connection at lib/Plack/Server/Standalone.pm line 111<pre class="context"><code>  108:                 if ($may_keepalive &amp;&amp; $max_reqs_per_child &amp;&amp; $proc_req_count &gt;= $max_reqs_per_child) {
+  109:                     $may_keepalive = undef;
+  110:                 }
+<strong class="match">  111:                 $self-&gt;handle_connection($env, $conn, $app, $may_keepalive, $req_count != 0)
+</strong>  112:                     or last;
+  113:                 # TODO add special cases for clients with broken keep-alive support, as well as disabling keep-alive for HTTP/1.0 proxies
+  114:             }
+</code></pre><p><a class="toggle" href="javascript:showLexicals('lexicals-12')">Show lexical variables</a></p><pre class="lexicals" id="lexicals-12">my $app = sub { &quot;???&quot; };
+my $conn = do {
+  require Symbol;
+  my $a = bless(Symbol::gensym(), &quot;IO::Socket::INET&quot;);
+  *{$a} = {
+    io_socket_peername =&gt; pack(&quot;H*&quot;,&quot;1002c5c57f0000010000000000000000&quot;),
+    io_socket_timeout  =&gt; undef,
+  };
+  $a;
+};
+my $env = {
+  HTTP_ACCEPT         =&gt; &quot;*/*&quot;,
+  HTTP_HOST           =&gt; &quot;localhost:8080&quot;,
+  HTTP_USER_AGENT     =&gt; &quot;curl/7.16.3 (powerpc-apple-darwin9.0) libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3&quot;,
+  PATH_INFO           =&gt; &quot;/&quot;,
+  QUERY_STRING        =&gt; &quot;&quot;,
+  REMOTE_ADDR         =&gt; &quot;127.0.0.1&quot;,
+  REQUEST_METHOD      =&gt; &quot;GET&quot;,
+  REQUEST_URI         =&gt; &quot;/&quot;,
+  SCRIPT_NAME         =&gt; &quot;&quot;,
+  SERVER_NAME         =&gt; 0,
+  SERVER_PORT         =&gt; 8080,
+  SERVER_PROTOCOL     =&gt; &quot;HTTP/1.1&quot;,
+  &quot;psgi.errors&quot;       =&gt; *main::STDERR,
+  &quot;psgi.input&quot;        =&gt; \*Plack::Server::Standalone::$input,
+  &quot;psgi.multiprocess&quot; =&gt; &quot;&quot;,
+  &quot;psgi.multithread&quot;  =&gt; &quot;&quot;,
+  &quot;psgi.run_once&quot;     =&gt; &quot;&quot;,
+  &quot;psgi.url_scheme&quot;   =&gt; &quot;http&quot;,
+  &quot;psgi.version&quot;      =&gt; [1, 0],
+};
+my $max_reqs_per_child = undef;
+my $may_keepalive = 1;
+my $proc_req_count = 5;
+my $req_count = 1;
+my $self = do {
+  require Symbol;
+  my $a = bless({
+    host =&gt; 0,
+    keepalive_timeout =&gt; 2,
+    listen_sock =&gt; bless(Symbol::gensym(), &quot;IO::Socket::INET&quot;),
+    max_keepalive_reqs =&gt; 100,
+    port =&gt; 8080,
+    timeout =&gt; 300,
+  }, &quot;Plack::Server::Standalone&quot;);
+  *{$a-&gt;{listen_sock}} = {
+    io_socket_domain  =&gt; 2,
+    io_socket_proto   =&gt; 6,
+    io_socket_timeout =&gt; undef,
+    io_socket_type    =&gt; 1,
+  };
+  $a;
+};
+</pre></body></html></li><li>in Plack::Server::Standalone::accept_loop at lib/Plack/Server/Standalone.pm line 62<pre class="context"><code>   59: sub run {
+   60:     my($self, $app) = @_;
+   61:     $self-&gt;setup_listener();
+<strong class="match">   62:     $self-&gt;accept_loop($app);
+</strong>   63: }
+   64: 
+   65: sub setup_listener {
+</code></pre><p><a class="toggle" href="javascript:showLexicals('lexicals-13')">Show lexical variables</a></p><pre class="lexicals" id="lexicals-13">my $app = sub { &quot;???&quot; };
+my $self = do {
+  require Symbol;
+  my $a = bless({
+    host =&gt; 0,
+    keepalive_timeout =&gt; 2,
+    listen_sock =&gt; bless(Symbol::gensym(), &quot;IO::Socket::INET&quot;),
+    max_keepalive_reqs =&gt; 100,
+    port =&gt; 8080,
+    timeout =&gt; 300,
+  }, &quot;Plack::Server::Standalone&quot;);
+  *{$a-&gt;{listen_sock}} = {
+    io_socket_domain  =&gt; 2,
+    io_socket_proto   =&gt; 6,
+    io_socket_timeout =&gt; undef,
+    io_socket_type    =&gt; 1,
+  };
+  $a;
+};
+</pre></body></html></li><li>in Plack::Server::Standalone::run at scripts/plackup line 42<pre class="context"><code>   39: 
+   40: my @args = map { s/^--//; split /=/, $_ } @ARGV;
+   41: my $server = Plack::Loader-&gt;auto(@args);
+<strong class="match">   42: $server-&gt;run($handler);
+</strong>   43: 
+   44: __END__
+   45: 
+</code></pre><p><a class="toggle" href="javascript:showLexicals('lexicals-14')">Show lexical variables</a></p><pre class="lexicals" id="lexicals-14">my $app = &quot;eg/dot-psgi/error.psgi&quot;;
+my $env = &quot;development&quot;;
+my $handler = sub { &quot;???&quot; };
+my $help = 0;
+my $server = do {
+  require Symbol;
+  my $a = bless({
+    host =&gt; 0,
+    keepalive_timeout =&gt; 2,
+    listen_sock =&gt; bless(Symbol::gensym(), &quot;IO::Socket::INET&quot;),
+    max_keepalive_reqs =&gt; 100,
+    port =&gt; 8080,
+    timeout =&gt; 300,
+  }, &quot;Plack::Server::Standalone&quot;);
+  *{$a-&gt;{listen_sock}} = {
+    io_socket_domain  =&gt; 2,
+    io_socket_proto   =&gt; 6,
+    io_socket_timeout =&gt; undef,
+    io_socket_type    =&gt; 1,
+  };
+  $a;
+};
+my @args = ();
+my @includes = ();
+</pre></body></html></li></ol>

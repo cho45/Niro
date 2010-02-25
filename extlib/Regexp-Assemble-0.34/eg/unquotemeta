@@ -1,0 +1,22 @@
+#! /usr/bin/perl
+#
+# unquotemeta - how to fix up quotemeta
+# 
+# part of the Regexp::Assemble module
+# David Landgren, copyright (c) 2005
+
+use strict;
+
+for my $ord( 0 .. 255 ) {
+    my $ch = chr($ord);
+    my $qm = quotemeta($ch);
+    my $fix = fixup($qm);
+
+    print "o=$ord c=$ch q=$qm f=$fix\n";
+}
+
+sub fixup {
+    my $ch = shift;
+    $ch =~ s/^\\([^-\w$()*+.\/?@\[\\\]^{|}])$/$1/;
+    $ch;
+}

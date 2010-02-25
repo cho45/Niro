@@ -1,0 +1,18 @@
+.cvsignore
+Changes
+lib/parent.pm
+Makefile.PL
+MANIFEST			This list of files
+t/compile-time-file.t
+t/compile-time.t
+t/lib/Dummy.pm
+t/lib/Dummy/Outside.pm
+t/lib/FileThatOnlyExistsAsPMC.pmc
+t/lib/ReturnsFalse.pm
+t/lib/Dummy2.plugin
+t/parent-classfromclassfile.t
+t/parent-classfromfile.t
+t/parent-pmc.t
+t/parent-returns-false.t
+t/parent.t
+META.yml                                 Module meta-data (added by MakeMaker)

@@ -1,0 +1,15 @@
+.shipit
+Build.PL
+Changes
+lib/Devel/StackTrace.pm
+LICENSE
+Makefile.PL
+MANIFEST			This list of files
+META.yml
+README
+t/01-basic.t
+t/02-bad-utf8.t
+t/kwalitee.t
+t/pod-coverage.t
+t/pod.t
+SIGNATURE    Added here by Module::Build

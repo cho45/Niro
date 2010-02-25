@@ -1,0 +1,28 @@
+--- #YAML:1.0
+name:               UNIVERSAL-require
+version:            0.13
+abstract:           require() modules from a variable
+author:
+    - Michael G Schwern <schwern@pobox.com>
+license:            perl
+distribution_type:  module
+configure_requires:
+    ExtUtils::MakeMaker:  0
+build_requires:
+    ExtUtils::MakeMaker:  0
+requires:
+    Test::More:  0.47
+resources:
+    bugtracker:  http://rt.cpan.org/Public/Dist/Display.html?Name=UNIVERSAL-require
+    license:     http://dev.perl.org/licenses/
+    repository:  http://svn.schwern.org/repos/CPAN/UNIVERSAL-require/trunk/
+no_index:
+    directory:
+        - t
+        - inc
+    package:
+        - UNIVERSAL
+generated_by:       ExtUtils::MakeMaker version 6.50
+meta-spec:
+    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
+    version:  1.4
