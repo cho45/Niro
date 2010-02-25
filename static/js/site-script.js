@@ -52,7 +52,10 @@ Niro.Entry.prototype = {
 		tools.append(ok, cancel);
 		content.append(body, tools)
 
-		body.css("width", "100%");
+		body.css({
+			"width": "100%",
+			"height": Math.max($content.height(), 200) + "px",
+		});
 
 		cancel.click(function () {
 			if (!self.entry_id) {
@@ -90,6 +93,8 @@ Niro.Entry.prototype = {
 			},
 			function () {
 				ok.attr('disabled', 'disabled');
+				title.attr('disabled', 'disabled');
+				body.attr('disabled', 'disabled');
 
 				var data = {
 					title : title.val(),
