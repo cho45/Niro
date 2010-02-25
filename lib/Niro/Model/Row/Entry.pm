@@ -23,7 +23,7 @@ sub update_tags {
 
 	my $tags = [];
 	my $body = $self->body;
-	$body =~ s{\[([^\[\]]+)\]}{
+	$body =~ s{\[\[([^\[\]]+)\]\]}{
 		push @$tags, $1;
 	}eg;
 
