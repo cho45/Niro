@@ -6,6 +6,7 @@ use utf8;
 
 use Digest::SHA1;
 use Path::Class;
+use URI;
 
 use Niro::Router;
 use Niro::Request;
@@ -25,6 +26,20 @@ route '/', action => sub {
 
 	$r->stash(page => $page);
 	$r->html('index.html');
+};
+
+route '/.rdf', action => sub {
+	my ($r) = @_;
+	my $page = Niro::Model->page(q{
+		SELECT * FROM entry
+		ORDER BY created_at DESC
+		LIMIT 30
+	});
+	$page->page($r->req->param('page') || 1);
+
+	$r->stash(page => $page);
+	$r->html('entries.rdf');
+	$r->res->header("Content-Type" => "application/rss+xml");
 };
 
 route '/:id', id => qr/\d+/, action => sub {
@@ -132,6 +147,14 @@ sub rks {
 sub uri_for {
 	my ($r, $path, $args) = @_;
 	my $uri = $r->req->base;
+	$uri->path(($r->config->{_}->{root} || $uri->path) . $path);
+	$uri->query_form(@$args) if $args;
+	$uri;
+}
+
+sub abs_uri {
+	my ($r, $path, $args) = @_;
+	my $uri = URI->new($r->config->{_}->{base});
 	$uri->path(($r->config->{_}->{root} || $uri->path) . $path);
 	$uri->query_form(@$args) if $args;
 	$uri;

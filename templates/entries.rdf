@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns="http://purl.org/rss/1.0/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:admin="http://webns.net/mvcb/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+	xml:lang="en">
+
+
+	<channel rdf:about="/index.rdf">
+		<title>Niro*</title>
+		<description>Niro</description>
+		<link><%= $r->abs_uri('/') %></link>
+		<admin:generatorAgent rdf:resource="http://github.com/cho45/Niro"/>
+		<items>
+			<rdf:Seq>
+				<% for my $entry (@{ $r->stash->{page}->entries }) { %>
+					<rdf:li rdf:resource="<%= $r->abs_uri('/' . $entry->id) %>" />
+				<% } %>
+			</rdf:Seq>
+		</items>
+	</channel>
+
+	<% for my $entry (@{ $r->stash->{page}->entries }) { %>
+		<item rdf:about="<%= $r->abs_uri('/' . $entry->id) %>">
+			<title><%= $entry->title %></title>
+			<link><%= $r->abs_uri('/' . $entry->id) %></link>
+			<dc:creator>cho45</dc:creator>
+			<dc:date><%= $entry->created_at->strftime('%Y-%m-%dT%H:%M:%SZ') %></dc:date>
+			<content:encoded><%= $entry->formatted_body %></content:encoded>
+		</item>
+	<% } %>
+
+</rdf:RDF>
+
