@@ -15,31 +15,7 @@
 
 	<div class="hfeed">
 		<% for my $entry (@{ $r->stash->{page}->entries }) { %>
-		<div class="hentry">
-			<h2>
-				<a href="<%= $r->uri_for('/' . $entry->id) %>" rel="bookmark">#<%= $entry->id %></a>
-				<span class="entry-title"><%= $entry->title %></span>
-			</h2>
-			<div class="entry-content">
-				<%raw= $entry->formatted_body %>
-			</div>
-			<div class="entry-info">
-				posted by
-				<span class="author vcard">
-					<span class="fn nickname">cho45</span>
-				</span>
-				at
-				<abbr class="published" title="<%= $entry->created_at %>Z"><%= $entry->ambtime('created_at') %></abbr>
-				, updated at
-				<abbr class="updated" title="<%= $entry->modified_at %>Z"><%= $entry->ambtime('modified_at') %></abbr>
-
-				<ul class="tags">
-					<% for my $tag (@{ $entry->tags }) { %>
-					<li><a href="<%= $r->uri_for("/$tag/") %>" rel="tag"><%= $tag %></a></li>
-					<% } %>
-				</ul>
-			</div>
-		</div>
+		<%& $r->config->root->file('templates', '_entry.html'), entry => $entry %>
 		<% } %>
 	</div>
 
