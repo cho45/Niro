@@ -19,7 +19,6 @@ wget http://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/Class-Factory-Util-1.7.
 wget http://search.cpan.org/CPAN/authors/id/F/FE/FERRENCY/Text-MicroMason-2.07.tar.gz
 wget http://search.cpan.org/CPAN/authors/id/S/SA/SATOH/Text-MicroMason-SafeServerPages-0.03.tar.gz
 wget http://search.cpan.org/CPAN/authors/id/E/EV/EVO/Class-MixinFactory-0.92.tar.gz
-wget http://search.cpan.org/CPAN/authors/id/J/JK/JKONDO/Text-Hatena-0.20.tar.gz
 wget http://search.cpan.org/CPAN/authors/id/D/DC/DCONWAY/Parse-RecDescent-1.964.tar.gz
 wget http://search.cpan.org/CPAN/authors/id/D/DL/DLAND/Regexp-Assemble-0.34.tar.gz
 

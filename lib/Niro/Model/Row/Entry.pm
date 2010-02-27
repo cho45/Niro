@@ -5,10 +5,10 @@ use base 'DBIx::Skinny::Row';
 use Niro::Model;
 use DateTime;
 
-use Text::Hatena;
+use Text::HatenaX;
 sub formatted_body {
 	my ($self) = @_;
-	Text::Hatena->parse($self->body);
+	Text::HatenaX->new->format($self->body);
 }
 
 sub update {
@@ -70,6 +70,11 @@ sub as_stash {
 		body           => $self->body,
 		formatted_body => $self->formatted_body,
 	}
+}
+
+sub path {
+	my ($self) = @_;
+	sprintf('/%d', $self->id);
 }
 
 

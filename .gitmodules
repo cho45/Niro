@@ -7,3 +7,6 @@
 [submodule "modules/DBIx-Skinny"]
 	path = modules/DBIx-Skinny
 	url = git://github.com/nekokak/p5-dbix-skinny.git
+[submodule "modules/Text-HatenaX"]
+	path = modules/Text-HatenaX
+	url = git://github.com/cho45/Text-HatenaX.git
