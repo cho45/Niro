@@ -1,21 +1,39 @@
 #!/bin/sh
 
-root=`dirname $0`/../
+script=`readlink -f $0`
+root=`dirname $script`/..
+
+cd $root
+echo Setup local::lib
+mkdir tmp
+cd tmp
+wget http://search.cpan.org/CPAN/authors/id/A/AP/APEIRON/local-lib-1.004009.tar.gz
+tar xzvf local-lib*.tar.gz
+cd local-lib*
+perl Makefile.PL --bootstrap=$root/extlib --no-manpages
+make
+make install
+cd ..
+cd ..
+rm -rf tmp
+
+cd $root
+echo Install deps to $root
 eval `perl -I$root/extlib/lib/perl5 -Mlocal::lib=$root/extlib`
 
-perl tools/cpanm parent
-perl tools/cpanm Try::Tiny
-perl tools/cpanm Try::Tiny
-perl tools/cpanm Devel::StackTrace
-perl tools/cpanm Devel::StackTrace::AsHTML
-perl tools/cpanm Path::Class
-perl tools/cpanm Exporter::Lite
-perl tools/cpanm HTTP::Body
-perl tools/cpanm Config::Tiny
-perl tools/cpanm DateTime::Format::Builder
-perl tools/cpanm DateTime::Format::SQLite
-perl tools/cpanm Text::MicroMason
-perl tools/cpanm Text::MicroMason::SafeServerPages
-perl tools/cpanm Class::Factory::Util
-perl tools/cpanm Class::MixinFactory
+perl tools/cpanm --notest parent
+perl tools/cpanm --notest Try::Tiny
+perl tools/cpanm --notest Try::Tiny
+perl tools/cpanm --notest Devel::StackTrace
+perl tools/cpanm --notest Devel::StackTrace::AsHTML
+perl tools/cpanm --notest Path::Class
+perl tools/cpanm --notest Exporter::Lite
+perl tools/cpanm --notest HTTP::Body
+perl tools/cpanm --notest Config::Tiny
+perl tools/cpanm --notest DateTime::Format::Builder
+perl tools/cpanm --notest DateTime::Format::SQLite
+perl tools/cpanm --notest Text::MicroMason
+perl tools/cpanm --notest Text::MicroMason::SafeServerPages
+perl tools/cpanm --notest Class::Factory::Util
+perl tools/cpanm --notest Class::MixinFactory
 
