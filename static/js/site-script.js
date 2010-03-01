@@ -135,6 +135,7 @@ Niro.setupCreateLink = function () {
 	var $hfeed = $(".hfeed");
 	$("<a href='#create'>New Entry</a>").prependTo($hfeed).click(function () {
 		var $hentry = $hfeed.find('.hentry').clone(true);
+		$hentry.find('.entry-content').empty();
 		$hentry.prependTo($hfeed);
 		var newEntry = new Niro.Entry($hentry[0], { newEntry : true });
 	});
