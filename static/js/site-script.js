@@ -66,7 +66,6 @@ Niro.Entry.prototype = {
 				content.replaceWith($content);
 			}
 		});
-		
 
 		chain(
 			function () {
@@ -114,7 +113,9 @@ Niro.Entry.prototype = {
 			},
 			function error (e) {
 				alert(e);
-				cancel.click();
+				title.removeAttr('disabled');
+				body.removeAttr('disabled');
+				ok.removeAttr('disabled');
 			}
 		);
 	}
