@@ -1,4 +1,0 @@
-<%perl>
-  my $greeting = ( $ARGS{hour} > 11 ) ? 'afternoon' : 'morning'; 
-</%perl>
-Good <% $greeting %>, <% $ARGS{name} %>!

@@ -2,7 +2,7 @@
 use strict;
 
 use lib glob 'modules/*/lib';
-use lib glob 'extlib/*/lib';
+use lib glob 'extlib/lib/perl5';
 use lib 'lib';
 
 use Plack::Runner;

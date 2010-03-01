@@ -1,2 +1,0 @@
-Test greeting:
-<& 'test.msn', hour => 15, name => $ARGS{name} &>
