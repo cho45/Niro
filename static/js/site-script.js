@@ -107,8 +107,11 @@ Niro.Entry.prototype = {
 			},
 			function (data) {
 				self.entry_id = data.entry.id;
+
+				var body = data.entry.formatted_body;
+				body = body.replace(/<script[^>]+>[\s\S]*?<\/script>/, '<div class="script">Update this script after reload</div>');
 				$title.html(data.entry.title);
-				$content.html(data.entry.formatted_body);
+				$content.html(body);
 				cancel.click();
 			},
 			function error (e) {
