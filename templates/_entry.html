@@ -17,6 +17,8 @@
 		, updated at
 		<abbr class="updated" title="<%= $entry->modified_at %>Z"><%= $entry->ambtime('modified_at') %></abbr>
 
+		<span class="star-container"></span>
+
 		<ul class="tags">
 			<% for my $tag (@{ $entry->tags }) { %>
 			<li><a href="<%= $r->uri_for("/$tag/") %>" rel="tag"><%= $tag %></a></li>

@@ -4,6 +4,16 @@ body {
 	font-family: 'Optima', serif;
 	background: #efefef;
 	color: #111;
+	line-height: 1.66;
+}
+
+pre {
+	font-size: 80%;
+	line-height: 1.33;
+	padding: 1em 1em;
+	background: #333;
+	-moz-border-radius: 1em;
+	-webkit-border-radius: 1em;
 }
 
 a:link {
@@ -95,6 +105,8 @@ abbr {
 
 
 .hentry h2 {
+	white-space: nowrap;
+	overflow: hidden;
 	margin: 1em 0 2em 0;
 }
 
@@ -128,3 +140,105 @@ abbr {
 	text-decoration: none;
 	padding: 1em;
 }
+
+pre.code {
+	color: #999999;
+	background: #222222;
+}
+
+pre.code .comment {
+	color: #80ac9f;
+}
+
+pre.code .string {
+	color: #968258;
+}
+
+pre.code .number {
+	color: #24c3b5;
+}
+
+pre.code .identifer {
+	color: #dddddd;
+}
+
+pre.code .symbol {
+	color: #479cdb;
+}
+
+pre.code .variable {
+	color: #479cdb;
+}
+
+pre.code .constant {
+	color: #479cdb;
+}
+
+pre.code .special_variable {
+	color: #14779d;
+}
+
+pre.code .keyword {
+	font-weight: bold;
+	color: #4e7585;
+}
+
+pre.code .literal {
+	color: #968258;
+}
+
+pre.code .operator {
+	color: #29845a;
+}
+
+pre.code.lang-css .at_keyword {
+	color: #479cdb;
+}
+
+pre.code.lang-css .important {
+	color: #14779d;
+}
+
+pre.code.lang-xpath .nodetest {
+	color: #479cdb;
+}
+
+pre.code.lang-xpath .axis {
+	color: #24c3b5;
+}
+
+pre.code.lang-xpath .function {
+	color: #479cdb;
+}
+
+pre.code.lang-xpath .qname {
+	color: #968258;
+}
+
+pre.code.lang-xml .cdata {
+	color: #80ac9f;
+}
+
+pre.code.lang-xml .tag {
+	color: #479cdb;
+}
+
+pre.code.lang-xml .pi {
+	color: #80ac9f;
+}
+
+pre.code.lang-xml .dtd {
+	color: #80ac9f;
+}
+
+pre.code.lang-xml .attribute_val {
+	color: #968258;
+}
+
+pre.code.lang-xml .attribute_name {
+	color: #14779d;
+}
+
+pre.code.lang-xml .other {
+}
+

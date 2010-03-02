@@ -1,16 +1,5 @@
 <%& $r->config->root->file('templates', '_header.html') %>
 
-<div id="recent">
-	<h2>Recent Entries</h2>
-	<ul>
-		<% for my $entry (@{ $r->stash->{page}->entries }) { %>
-		<li>
-			<a href="<%= $r->uri_for('/' . $entry->id) %>" rel="bookmark">#<%= $entry->id %></a>
-			<span class="entry-title"><%= $entry->title %></span>
-		</li>
-		<% } %>
-	</ul>
-</div>
 <div id="content">
 
 	<div class="hfeed">
