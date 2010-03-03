@@ -13,6 +13,8 @@ use Niro::Request;
 use Niro::View;
 use Niro::Model;
 use Niro::Config;
+use Niro::Model::Row::Entry;
+use Niro::Empty;
 
 
 route '/', action => sub {
@@ -116,6 +118,12 @@ route '/api/info', method => GET, action => sub {
 	$r->json({
 		entry => $entry->as_stash
 	});
+};
+
+route '/api/new', method => GET, action => sub {
+	my ($r) = @_;
+	$r->stash->{entry} = Niro::Empty->new;
+	$r->html('_entry.html');
 };
 
 sub login {

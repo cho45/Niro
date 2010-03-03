@@ -14,7 +14,8 @@ Niro.Entry.prototype = {
 		self.$info     = self.$entry.find('.entry-info');
 		self.$bookmark = self.$entry.find('a[rel="bookmark"]');
 		self.permalink = self.$bookmark.attr('href');
-		self.entry_id  = self.permalink.match(/(\d+)$/)[1];
+		self.entry_id  = self.permalink.match(/(\d+)$/);
+		self.entry_id  = self.entry_id ? self.entry_id[1] : null;
 		self.editLink  = self.$entry.find('a[href$="edit"]');
 		if (!self.editLink.size())
 			self.editLink = $('<a href="' + self.permalink +'#edit" class="admin">Edit</a>');
@@ -54,7 +55,7 @@ Niro.Entry.prototype = {
 
 		body.css({
 			"width": "100%",
-			"height": Math.max($content.height(), 200) + "px",
+			"height": Math.min(Math.max($content.height(), 200), 500) + "px",
 		});
 
 		cancel.click(function () {
@@ -113,6 +114,8 @@ Niro.Entry.prototype = {
 				$title.html(data.entry.title);
 				$content.html(body);
 				cancel.click();
+
+				Niro.SyntaxHighlighter.setup($content);
 			},
 			function error (e) {
 				alert(e);
@@ -134,10 +137,18 @@ Niro.setupEditLinks = function () {
 Niro.setupCreateLink = function () {
 	var $hfeed = $(".hfeed");
 	$("<a href='#create'>New Entry</a>").prependTo($hfeed).click(function () {
-		var $hentry = $hfeed.find('.hentry').clone(true);
-		$hentry.find('.entry-content').empty();
-		$hentry.prependTo($hfeed);
-		var newEntry = new Niro.Entry($hentry[0], { newEntry : true });
+		$.get(Niro.BASE + "/api/new").
+		next(function (res) {
+			var newEntry = $(res);
+			newEntry.prependTo($hfeed);
+			new Niro.Entry(
+				newEntry,
+				{ newEntry : true }
+			);
+		}).
+		error(function (e) {
+			alert(e);
+		});
 	});
 
 	// var $entry = $(".hentry");
@@ -344,8 +355,8 @@ Niro.SyntaxHighlighter.prototype = {
 		return (m ? m[1] : "fallback").toLowerCase();
 	}
 };
-Niro.SyntaxHighlighter.setup = function () {
-	var codes = $("pre.code");
+Niro.SyntaxHighlighter.setup = function (parent) {
+	var codes = $(parent).find("pre.code");
 	loop(codes.length, function (i) {
 		new Niro.SyntaxHighlighter(codes[i]).highlight();
 	});
@@ -357,5 +368,5 @@ $(function () {
 		Niro.setupEditLinks();
 		Niro.setupCreateLink();
 	}
-	Niro.SyntaxHighlighter.setup();
+	Niro.SyntaxHighlighter.setup(document.body);
 });

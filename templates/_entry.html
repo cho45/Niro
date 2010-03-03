@@ -1,4 +1,4 @@
-<% my $entry = $ARGS{entry}; %>
+<% my $entry = $ARGS{entry} || $r->stash->{entry}; %>
 <div class="hentry">
 	<h2>
 		<a href="<%= $r->uri_for('/' . $entry->id) %>" rel="bookmark">#<%= $entry->id %></a>
@@ -19,10 +19,12 @@
 
 		<span class="star-container"></span>
 
+		<% if ($entry->tags) { %>
 		<ul class="tags">
 			<% for my $tag (@{ $entry->tags }) { %>
 			<li><a href="<%= $r->uri_for("/$tag/") %>" rel="tag"><%= $tag %></a></li>
 			<% } %>
 		</ul>
+		<% } %>
 	</div>
 </div>
