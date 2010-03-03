@@ -6,9 +6,15 @@ use Niro::Model;
 use DateTime;
 
 use Text::HatenaX;
+use Text::HatenaX::Inline::Aggressive;
+use Cache::FileCache;
 sub formatted_body {
 	my ($self) = @_;
-	Text::HatenaX->new->format($self->body);
+	Text::HatenaX->new->format($self->body,
+		inline => Text::HatenaX::Inline::Aggressive->new(
+			cache => Cache::FileCache->new({default_expires_in => 60 * 60 * 24 * 30})
+		)
+	);
 }
 
 sub update {
