@@ -3,7 +3,9 @@ use strict;
 
 use lib glob 'modules/*/lib';
 use lib glob 'extlib/lib/perl5';
+use lib glob 'extlib/lib/perl5/*/';
 use lib 'lib';
+$ENV{LIST_MOREUTILS_PP} = 1;
 
 use Plack::Runner;
 

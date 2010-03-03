@@ -38,4 +38,6 @@ perl tools/cpanm --notest Text::MicroMason::SafeServerPages
 perl tools/cpanm --notest Class::Factory::Util
 perl tools/cpanm --notest Class::MixinFactory
 perl tools/cpanm --notest JSON
+perl tools/cpanm --notest List::MoreUtils
+perl tools/cpanm --notest Cache::FileCache
 
