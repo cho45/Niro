@@ -1,9 +1,9 @@
 <%& $r->config->root->file('templates', '_header.html') %>
 
 <div id="content">
-	<%& $r->config->root->file('templates', '_entry.html'), entry => $r->stash->{entry} %>
-
-	<%& $r->config->root->file('templates', '_comment.html') %>
+	<div class="hfeed">
+		<%& $r->config->root->file('templates', '_entry.html'), entry => $r->stash->{entry}, permalink => 1 %>
+	</div>
 </div>
 
 <%& $r->config->root->file('templates', '_footer.html') %>

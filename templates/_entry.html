@@ -19,6 +19,9 @@
 
 		<span class="star-container"></span>
 
+		<a href="<%= $r->uri_for($entry->path) %>#disqus_thread" rel="comment">#<%= $entry->id %></a>
+
+
 		<% if ($entry->tags) { %>
 		<ul class="tags">
 			<% for my $tag (@{ $entry->tags }) { %>
@@ -27,4 +30,8 @@
 		</ul>
 		<% } %>
 	</div>
+
+	<% if ($ARGS{permalink}) { %>
+		<%& $r->config->root->file('templates', '_comment.html') %>
+	<% } %>
 </div>
