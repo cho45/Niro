@@ -44,6 +44,20 @@ route '/.rdf', action => sub {
 	$r->res->header("Content-Type" => "application/rss+xml");
 };
 
+route '/sitemap.xml', action => sub {
+	my ($r) = @_;
+	my $page = Niro::Model->page(q{
+		SELECT * FROM entry
+		ORDER BY created_at DESC
+		LIMIT 100
+	});
+	$page->page($r->req->param('page') || 1);
+
+	$r->stash(page => $page);
+	$r->html('sitemap.xml');
+	$r->res->header("Content-Type" => "text/xml");
+};
+
 route '/:id', id => qr/\d+-[\s\S]*/, action => sub {
 	my ($r) = @_;
 	my ($id) = ($r->req->param('id') =~ /^(\d+)/);
