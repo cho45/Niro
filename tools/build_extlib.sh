@@ -40,4 +40,5 @@ perl tools/cpanm --notest Class::MixinFactory
 perl tools/cpanm --notest JSON
 perl tools/cpanm --notest List::MoreUtils
 perl tools/cpanm --notest Cache::FileCache
+perl tools/cpanm --notest URI::Escape
 

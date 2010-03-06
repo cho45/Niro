@@ -504,3 +504,25 @@ C<EXE_FILES: >
 
 =back
 
+=head2 Fri Mar  5 03:32:35 2010: C<Module> L<URI|URI>
+
+=over 4
+
+=item *
+
+C<installed into: /home/cho45/project/Niro/tools/../extlib/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.52>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+

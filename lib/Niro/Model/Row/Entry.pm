@@ -4,6 +4,7 @@ use warnings;
 use base 'DBIx::Skinny::Row';
 use Niro::Model;
 use DateTime;
+use URI::Escape;
 
 use Text::Xatena;
 use Text::Xatena::Inline::Aggressive;
@@ -80,7 +81,7 @@ sub as_stash {
 
 sub path {
 	my ($self) = @_;
-	sprintf('/%d', $self->id);
+	sprintf('/%d-%s', $self->id, uri_escape_utf8($self->title));
 }
 
 

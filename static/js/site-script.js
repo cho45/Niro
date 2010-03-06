@@ -96,9 +96,14 @@ Niro.Entry.prototype = {
 				title.attr('disabled', 'disabled');
 				body.attr('disabled', 'disabled');
 
+				var value = body.val();
+				value = value.replace(/<(ins|del)>/g, function (_, n) {
+					return '<' + n + ' datetime="' + w3cdtf(new Date) + '">';
+				});
+
 				var data = {
 					title : title.val(),
-					body  : body.val(),
+					body  : value,
 					rks   : Niro.User.rks
 				};
 				if (!self.opts.newEntry)
@@ -361,6 +366,28 @@ Niro.SyntaxHighlighter.setup = function (parent) {
 		new Niro.SyntaxHighlighter(codes[i]).highlight();
 	});
 };
+
+
+
+function w3cdtf (d) {
+	var date =[
+		String(10000 + d.getFullYear() ).slice(1),
+		String(  100 + d.getMonth() + 1).slice(1),
+		String(  100 + d.getDate()     ).slice(1)
+			].join("-");
+
+	var time = [
+		String(  100 + d.getHours()   ).slice(1),
+		String(  100 + d.getMinutes() ).slice(1),
+		String(  100 + d.getSeconds() ).slice(1)
+			].join(":");
+
+	var offset = d.getTimezoneOffset();
+	var plsmns = (offset < 0) ? "+" : "-", offset = Math.abs(offset);
+	var zone   = plsmns + String(100 + offset / 60).slice(1) + ":" + String(100 + offset % 60).slice(1);
+
+	return date + "T" + time + zone;
+}
 
 $(function () {
 

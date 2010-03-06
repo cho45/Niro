@@ -1,4 +1,4 @@
-#!perl -Imodules/Plack/lib modules/Plack/scripts/plackup -app 
+#!perl -Imodules/Plack/lib modules/Plack/scripts/plackup -r -app 
 use strict;
 use warnings;
 use utf8;

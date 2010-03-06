@@ -44,9 +44,10 @@ route '/.rdf', action => sub {
 	$r->res->header("Content-Type" => "application/rss+xml");
 };
 
-route '/:id', id => qr/\d+/, action => sub {
+route '/:id', id => qr/\d+-[\s\S]*/, action => sub {
 	my ($r) = @_;
-	my $entry = Niro::Model->single('entry', { id => $r->req->param('id') });
+	my ($id) = ($r->req->param('id') =~ /^(\d+)/);
+	my $entry = Niro::Model->single('entry', { id => $id });
 	$r->stash(entry => $entry);
 	$r->html('entry.html');
 };
