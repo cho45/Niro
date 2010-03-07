@@ -129,7 +129,7 @@
 .\" ========================================================================
 .\"
 .IX Title "CONFIG_DATA 1"
-.TH CONFIG_DATA 1 "2010-03-01" "perl v5.8.8" "User Contributed Perl Documentation"
+.TH CONFIG_DATA 1 "2010-03-07" "perl v5.8.8" "User Contributed Perl Documentation"
 .SH "NAME"
 config_data \- Query or change configuration of Perl modules
 .SH "SYNOPSIS"
