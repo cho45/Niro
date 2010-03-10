@@ -14,7 +14,7 @@ Niro.Entry.prototype = {
 		self.$info     = self.$entry.find('.entry-info');
 		self.$bookmark = self.$entry.find('a[rel="bookmark"]');
 		self.permalink = self.$bookmark.attr('href');
-		self.entry_id  = self.permalink.match(/(\d+)$/);
+		self.entry_id  = self.permalink.match(/\/(\d+)-/);
 		self.entry_id  = self.entry_id ? self.entry_id[1] : null;
 		self.editLink  = self.$entry.find('a[href$="edit"]');
 		if (!self.editLink.size())
