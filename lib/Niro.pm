@@ -171,7 +171,7 @@ sub uri_for {
 	my ($r, $path, $args) = @_;
 	$path ||= "";
 	my $uri = $r->req->base;
-	$uri->path(($r->config->{_}->{root} || $uri->path) . $path);
+	$uri->path(($r->config->{_}->{root} || '') . $path);
 	$uri->query_form(@$args) if $args;
 	$uri;
 }
@@ -180,7 +180,7 @@ sub abs_uri {
 	my ($r, $path, $args) = @_;
 	$path ||= "";
 	my $uri = URI->new($r->config->{_}->{base});
-	$uri->path(($r->config->{_}->{root} || $uri->path) . $path);
+	$uri->path(($r->config->{_}->{root} || '') . $path);
 	$uri->query_form(@$args) if $args;
 	$uri;
 }

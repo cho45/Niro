@@ -16,7 +16,7 @@ my $handler = \&Niro::run;
 
 builder {
     enable "Plack::Middleware::Static",
-        path => qr{^/static/}, root => dirname(__FILE__) . '/../';
+        path => qr{^//?static/}, root => dirname(__FILE__) . '/../';
     $handler;
 };
 
